@@ -7,7 +7,7 @@
         <article class="mt-6 prose">
             <div class="flex items-baseline">
                 @markdown($article->title_markdown)
-                <span class="ml-2 text-xs italic">{{ $article->published_at->diffForHumans() }} door <a href="/users/{{ $article->author->id }}">{{ $article->author->name }}</a></span>
+                <span class="ml-2 text-xs italic">{{ optional($article->published_at)->diffForHumans() }} door <a href="/users/{{ $article->author->id }}">{{ $article->author->name }}</a></span>
             </div>
             @markdown($article->excerpt)
         </article>

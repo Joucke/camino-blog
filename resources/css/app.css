@@ -3,3 +3,9 @@
 @tailwind components;
 
 @tailwind utilities;
+
+.prose img+em {
+    position: relative;
+    top: -2.25em;
+    font-size: 0.875rem;
+}

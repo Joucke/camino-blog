@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Photo;
 use Illuminate\Http\Request;
 
 class PhotoController extends Controller
@@ -13,10 +14,15 @@ class PhotoController extends Controller
 
     public function store(Request $request)
     {
-        $paths = [];
         foreach ($request->file('photos') as $photo) {
-            $paths[] = $photo->store(now()->format('Y-m-d'), 'photos');
+            $path = $photo->store(now()->format('Y-m-d'), 'photos');
+            Photo::create(compact('path'));
         }
-        return $paths;
+        return Photo::latest()->get();
+    }
+
+    public function index()
+    {
+        return Photo::latest()->get();
     }
 }

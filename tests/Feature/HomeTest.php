@@ -33,7 +33,9 @@ it('shows 15 paginated articles on the home page', function () {
         'title' => 'My article',
         'published_at' => now()->subHour(),
     ]);
-    factory(Article::class, 20)->states('published')->create();
+    factory(Article::class, 20)->create([
+        'published_at' => now()->subDay(),
+    ]);
 
     $response = $this->get('/')
         ->assertSee('My article')

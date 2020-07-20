@@ -19,7 +19,13 @@ window.Vue = require('vue');
 // const files = require.context('./', true, /\.vue$/i)
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
 
-Vue.component('example-component', require('./components/ExampleComponent.vue').default);
+Vue.component('blog-form', require('./components/BlogForm.vue').default);
+Vue.component('blog-textarea', require('./components/BlogTextarea.vue').default);
+Vue.component('image-preview', require('./components/ImagePreview.vue').default);
+Vue.component('upload-form', require('./components/UploadForm.vue').default);
+
+import PortalVue from 'portal-vue'
+Vue.use(PortalVue)
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to

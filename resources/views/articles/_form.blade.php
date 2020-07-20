@@ -15,7 +15,7 @@
     </label>
     <div class="mt-1 sm:mt-0 sm:col-span-2">
         <div class="max-w-lg flex rounded-md shadow-sm">
-            <textarea id="body" name="body" rows="15" class="form-textarea block w-full transition duration-150 ease-in-out sm:text-sm sm:leading-5">{{ old('body', $article->body) }}</textarea>
+            <blog-textarea id="body" name="body" rows="15" class="form-textarea block w-full transition duration-150 ease-in-out sm:text-sm sm:leading-5" value="{{ old('body', $article->body) }}"></blog-textarea>
         </div>
     </div>
 </div>
