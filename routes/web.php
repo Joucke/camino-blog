@@ -17,3 +17,4 @@ Auth::routes(['register' => false]);
 
 Route::get('/', 'ArticleController@index');
 Route::resource('articles', 'ArticleController')->except('index');
+Route::resource('photos', 'PhotoController');
