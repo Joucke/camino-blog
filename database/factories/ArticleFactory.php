@@ -10,7 +10,7 @@ $factory->define(Article::class, function (Faker $faker) {
     return [
         'author_id' => factory(User::class),
         'title' => $faker->sentence,
-        'body' => implode("\n", $faker->paragraphs(3)),
+        'body' => implode("\r\n", $faker->paragraphs(3)),
     ];
 });
 

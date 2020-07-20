@@ -1,6 +1,7 @@
 <?php
 
 use App\Article;
+use App\User;
 
 it('loads the home page')
     ->get('/')
@@ -14,28 +15,46 @@ test('guests do not see a register link on the home page')
     ->get('/')
     ->assertDontSee('/register');
 
-test('users can logout')
-    ->markTestIncomplete();
+test('users can logout', function () {
+    $user = factory(User::class)->create();
+    $this->actingAs($user)
+        ->get('/')
+        ->assertSee('/logout');
+
+    $this->post('/logout')
+        ->assertLocation('/');
+
+    $this->get('/')
+        ->assertSee('/login');
+});
 
 it('shows 15 paginated articles on the home page', function () {
-    factory(Article::class)->states('published')->create(['title' => 'First article']);
+    factory(Article::class)->create([
+        'title' => 'My article',
+        'published_at' => now()->subHour(),
+    ]);
     factory(Article::class, 20)->states('published')->create();
 
     $response = $this->get('/')
-        ->assertSee('First article')
+        ->assertSee('My article')
         ->assertSee('?page=2');
 
     $this->assertCount(15, $response['articles']);
 });
 
-test('guests see a calendar view on the home page')
-    ->markTestIncomplete();
+test('users see a link to add an article', function () {
+    $user = factory(User::class)->create();
+
+    $this->actingAs($user)
+        ->get('/')
+        ->assertSee('/articles/create');
+});
 
 test('guests see a list of tags on the home page')
     ->markTestIncomplete();
 
-test('guests see a link to "map view" on the home page')
+test('guests see a calendar view on the home page')
     ->markTestIncomplete();
 
-test('users see a link to add an article')
+test('guests see a link to "map view" on the home page')
     ->markTestIncomplete();

@@ -6,7 +6,7 @@
         <div class="prose">
 @markdown
 ## {{ $article->title }}
-_{{ $article->author->name }}, {{ $article->published_at->diffForHumans() }}_
+_{{ $article->author->name }}, {{ optional($article->published_at)->diffForHumans() }}_
 
 {{ $article->body }}
 @endmarkdown

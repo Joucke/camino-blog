@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Article;
+use App\PublishedArticle;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 
@@ -20,7 +21,7 @@ class ArticleController extends Controller
     public function index()
     {
         return view('articles.index', [
-            'articles' => Article::latest()->whereNotNull('published_at')->paginate(),
+            'articles' => PublishedArticle::latest()->paginate(),
         ]);
     }
 
@@ -31,7 +32,6 @@ class ArticleController extends Controller
      */
     public function create()
     {
-
         return view('articles.create', [
             'article' => new Article,
         ]);
@@ -55,10 +55,11 @@ class ArticleController extends Controller
     /**
      * Display the specified resource.
      *
+     * @param  \Illuminate\Http\Request  $request
      * @param  \App\Article  $article
      * @return \Illuminate\Http\Response
      */
-    public function show(Article $article)
+    public function show(Request $request, PublishedArticle $article)
     {
         return view('articles.show', [
             'article' => $article,
