@@ -13,7 +13,9 @@ _{{ $article->author->name }}, {{ $article->published_at->diffForHumans() }}_
         </div>
     </div>
     <div class="p-4 w-full sm:w-64">
-        <a href="/articles/{{ $article->slug }}/edit">Edit</a>
+        @auth
+            <a href="/articles/{{ $article->slug }}/edit">Bewerken</a>
+        @endauth
     </div>
 </main>
 @endsection

@@ -7,27 +7,27 @@
         <article class="mt-6 prose">
             <div class="flex items-baseline">
                 @markdown($article->title_markdown)
-                <span class="ml-2 text-xs italic">{{ $article->published_at->diffForHumans() }} by <a href="/users/{{ $article->author->id }}">{{ $article->author->name }}</a></span>
+                <span class="ml-2 text-xs italic">{{ $article->published_at->diffForHumans() }} door <a href="/users/{{ $article->author->id }}">{{ $article->author->name }}</a></span>
             </div>
             @markdown($article->excerpt)
         </article>
         @empty
         <article class="mt-6 prose">
-            @markdown('### No articles yet.')
+            @markdown('### Nog geen blogs.')
 
             @auth
-                @markdown('[Create an article](/articles/create)')
+                @markdown('[Blog schrijven](/articles/create)')
             @endauth
         </article>
         @endforelse
     </div>
     <div class="p-4 w-full sm:w-64">
         @auth
-            <a href="/articles/create">Add an article</a>
+            <a href="/articles/create">Blog schrijven</a>
         @endauth
-        <aside>list of tags?</aside>
-        <aside>map view</aside>
-        <aside>calendar view</aside>
+        <aside>lijst met tags?</aside>
+        <aside>kaart-overzicht?</aside>
+        <aside>kalender-overzicht?</aside>
     </div>
 </main>
 <nav>

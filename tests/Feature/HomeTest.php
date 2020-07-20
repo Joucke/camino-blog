@@ -8,11 +8,11 @@ it('loads the home page')
 
 test('guests see a login link on the home page')
     ->get('/')
-    ->assertSee('Login');
+    ->assertSee('/login');
 
 test('guests do not see a register link on the home page')
     ->get('/')
-    ->assertDontSee('Register');
+    ->assertDontSee('/register');
 
 test('users can logout')
     ->markTestIncomplete();
@@ -23,7 +23,7 @@ it('shows 15 paginated articles on the home page', function () {
 
     $response = $this->get('/')
         ->assertSee('First article')
-        ->assertSee('Next');
+        ->assertSee('?page=2');
 
     $this->assertCount(15, $response['articles']);
 });

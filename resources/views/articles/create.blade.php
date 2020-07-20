@@ -4,6 +4,6 @@
 <form action="/articles" method="POST">
     @csrf
     @include('articles._form')
-    <button class="border">Save</button>
+    <button class="border">Toevoegen</button>
 </form>
 @endsection
