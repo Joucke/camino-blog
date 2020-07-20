@@ -34,7 +34,8 @@ export default {
             })
             .then(response => response.json())
             .then(result => {
-                this.$parent.$emit('images', {images: result.map(image => image.path)})
+                this.$parent.$emit('images', {images: result.map(image => image.path)});
+                files.value = '';
             });
         },
     },
