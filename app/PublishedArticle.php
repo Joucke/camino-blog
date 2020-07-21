@@ -3,7 +3,6 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\Model;
 
 class PublishedArticle extends Article
 {
@@ -18,6 +17,5 @@ class PublishedArticle extends Article
             $builder->whereNotNull('published_at')
                 ->where('published_at', '<=', now());
         });
-
     }
 }

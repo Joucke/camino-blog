@@ -33,7 +33,7 @@ class ArticleController extends Controller
     public function create()
     {
         return view('articles.create', [
-            'article' => new Article,
+            'article' => new Article(),
         ]);
     }
 
@@ -41,6 +41,7 @@ class ArticleController extends Controller
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
+     *
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
@@ -55,11 +56,11 @@ class ArticleController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Article  $article
+     * @param  \App\PublishedArticle  $article
+     *
      * @return \Illuminate\Http\Response
      */
-    public function show(Request $request, PublishedArticle $article)
+    public function show(PublishedArticle $article)
     {
         return view('articles.show', [
             'article' => $article,
@@ -70,6 +71,7 @@ class ArticleController extends Controller
      * Show the form for editing the specified resource.
      *
      * @param  \App\Article  $article
+     *
      * @return \Illuminate\Http\Response
      */
     public function edit(Article $article)
@@ -84,6 +86,7 @@ class ArticleController extends Controller
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  \App\Article  $article
+     *
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, Article $article)
@@ -99,10 +102,11 @@ class ArticleController extends Controller
      * Remove the specified resource from storage.
      *
      * @param  \App\Article  $article
+     *
      * @return \Illuminate\Http\Response
      */
     public function destroy(Article $article)
     {
-        //
+        // TODO: delete an Article $article
     }
 }

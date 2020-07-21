@@ -12,13 +12,6 @@ class Article extends Model
         'published_at' => 'datetime',
     ];
 
-    protected static function booted()
-    {
-        static::saving(function (Article $article) {
-            $article->slug = Str::slug($article->title);
-        });
-    }
-
     public function getExcerptAttribute()
     {
         $firstParagraph = Str::before($this->body, "\n");
@@ -42,5 +35,12 @@ class Article extends Model
     public function author()
     {
         return $this->belongsTo(User::class, 'author_id');
+    }
+
+    protected static function booted()
+    {
+        static::saving(function (Article $article) {
+            $article->slug = Str::slug($article->title);
+        });
     }
 }
