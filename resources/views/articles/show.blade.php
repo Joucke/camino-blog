@@ -5,7 +5,7 @@
     <div class="p-4 flex-grow">
         <div class="prose">
 @markdown
-## {{ $article->title }}
+# {{ $article->title }}
 _{{ $article->author->name }}, {{ optional($article->published_at)->diffForHumans() ?? 'nog niet gepubliceerd'}}_
 
 {{ $article->body }}
