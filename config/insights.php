@@ -63,7 +63,18 @@ return [
     */
 
     'exclude' => [
-        //  'path/to/directory-or-file'
+        'app/Console/Kernel.php',
+        'app/Exceptions/Handler.php',
+        'app/Http/Kernel.php',
+        'app/Http/Middleware/Authenticate.php',
+        'app/Http/Middleware/CheckForMaintenanceMode.php',
+        'app/Http/Middleware/EncryptCookies.php',
+        'app/Http/Middleware/RedirectIfAuthenticated.php',
+        'app/Http/Middleware/VerifyCsrfToken.php',
+        'app/Providers/AppServiceProvider.php',
+        'app/Providers/AuthServiceProvider.php',
+        'app/Providers/EventServiceProvider.php',
+        'app/Providers/RouteServiceProvider.php',
     ],
 
     'add' => [
