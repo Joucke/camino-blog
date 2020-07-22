@@ -18,3 +18,7 @@ Auth::routes(['register' => false]);
 Route::get('/', 'ArticleController@index');
 Route::resource('articles', 'ArticleController')->except('index');
 Route::resource('photos', 'PhotoController');
+Route::resource('locations', 'LocationController');
+
+Route::get('/geocode-search', 'GeocodeController@search');
+Route::get('/geocode-reverse', 'GeocodeController@reverse');

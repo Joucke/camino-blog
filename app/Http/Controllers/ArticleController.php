@@ -20,9 +20,10 @@ class ArticleController extends Controller
      */
     public function index()
     {
-        return view('articles.index', [
-            'articles' => PublishedArticle::latest()->paginate(),
-        ]);
+        $articles = PublishedArticle::latest('published_at')
+            ->with('author:id,name')
+            ->paginate();
+        return view('articles.index', compact('articles'));
     }
 
     /**
@@ -48,8 +49,12 @@ class ArticleController extends Controller
     {
         $attributes = $request->only(['title', 'body', 'published_at']);
         $attributes['slug'] = Str::slug($attributes['title']);
-        auth()->user()->articles()->create($attributes);
+        $article = auth()->user()->articles()->create($attributes);
 
+        if ($request->has('locations')) {
+            $locations = $request->input('locations');
+            $article->locations()->attach($locations);
+        }
         return redirect('/');
     }
 
@@ -94,6 +99,11 @@ class ArticleController extends Controller
         $attributes = $request->only(['title', 'body', 'published_at']);
         $attributes['slug'] = Str::slug($attributes['title']);
         $article->update($attributes);
+
+        if ($request->has('locations')) {
+            $locations = $request->input('locations');
+            $article->locations()->sync($locations);
+        }
 
         return redirect('/articles/'.$article->slug);
     }

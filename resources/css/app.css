@@ -9,3 +9,36 @@
     top: -2.25em;
     font-size: 0.875rem;
 }
+
+.lds-ripple {
+    display: inline-block;
+    position: relative;
+    width: 36px;
+    height: 36px;
+}
+.lds-ripple div {
+    position: absolute;
+    @apply border border-2 border-indigo-700;
+    opacity: 1;
+    border-radius: 50%;
+    animation: lds-ripple 1s cubic-bezier(0, 0.2, 0.8, 1) infinite;
+}
+.lds-ripple div:nth-child(2) {
+    animation-delay: -0.5s;
+}
+@keyframes lds-ripple {
+    0% {
+        top: 17px;
+        left: 17px;
+        width: 0;
+        height: 0;
+        opacity: 1;
+    }
+    100% {
+        top: 0px;
+        left: 0px;
+        width: 36px;
+        height: 36px;
+        opacity: 0;
+    }
+}

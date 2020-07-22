@@ -16,6 +16,10 @@ _{{ $article->author->name }}, {{ optional($article->published_at)->diffForHuman
         @auth
             <a href="/articles/{{ $article->slug }}/edit">Bewerken</a>
         @endauth
+        <article-map
+            class="w-full h-64"
+            :locations="{{ $article->locations }}"
+        />
     </div>
 </main>
 @endsection

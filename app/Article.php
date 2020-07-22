@@ -37,6 +37,11 @@ class Article extends Model
         return $this->belongsTo(User::class, 'author_id');
     }
 
+    public function locations()
+    {
+        return $this->belongsToMany(Location::class, 'article_location', 'article_id');
+    }
+
     protected static function booted()
     {
         static::saving(function (Article $article) {

@@ -1,6 +1,7 @@
 <?php
 
 use App\Article;
+use App\Location;
 use App\User;
 
 beforeEach(function () {
@@ -63,13 +64,35 @@ test('users can publish when editing an article', function () {
 });
 
 test('users can add images when editing an article', function () {
-    //
-})->markTestIncomplete();
-
-test('users can change tags when editing an article', function () {
-    //
-})->markTestIncomplete();
+    $this->actingAs(factory(User::class)->create())
+        ->get($this->articleUrl . '/edit')
+        ->assertSee('<upload-form />', false);
+});
 
 test('users can change a location when editing an article', function () {
+    $home = factory(Location::class)->create();
+    $work = factory(Location::class)->create();
+    $this->article->locations()->attach($home);
+
+    $this->assertTrue($this->article->fresh()->locations->first()->is($home));
+
+    $this->actingAs(factory(User::class)->create())
+        ->patch($this->articleUrl, [
+            'title' => 'my article',
+            'body' => 'this is my article',
+            'locations' => [
+                $work->id,
+            ],
+        ])
+        ->assertRedirect('/articles/my-article');
+
+    tap($this->article->fresh(), function ($article) use ($home, $work) {
+        $this->assertCount(1, $article->locations);
+        $this->assertFalse($article->locations->first()->is($home));
+        $this->assertTrue($article->locations->first()->is($work));
+    });
+});
+
+test('users can change tags when editing an article', function () {
     //
 })->markTestIncomplete();

@@ -38,4 +38,6 @@
 </main>
 <portal-target name="blog-form-modal">
 </portal-target>
+<portal-target name="add-location-modal">
+</portal-target>
 @endsection
