@@ -9,7 +9,7 @@
                 <h3 class="text-lg tracking-wide font-bold">
                     <a class="underline" href="/articles/{{ $article->slug }}">{{ $article->title }}</a>
                 </h3>
-                <span class="text-sm italic">{{ optional($article->published_at)->diffForHumans() }} door <a class="underline" href="/users/{{ $article->author->id }}">{{ $article->author->name }}</a></span>
+                <span class="text-sm italic sm:ml-3 sm:text-xs">{{ optional($article->published_at)->diffForHumans() }} door <a class="underline" href="/users/{{ $article->author->id }}">{{ $article->author->name }}</a></span>
             </div>
             <div class="flex flex-wrap">
                 @foreach ($article->locations as $location)
