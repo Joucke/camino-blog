@@ -12,7 +12,7 @@
             <aside>
                 <upload-form />
             </aside>
-            <aside>
+            <aside class="mt-6">
                 <image-preview />
             </aside>
         </div>
