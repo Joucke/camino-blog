@@ -4,19 +4,19 @@
 <main class="flex flex-col sm:flex-row w-full">
     <div class="p-4 flex-grow">
         @forelse($articles as $article)
-        <article class="prose">
-            <div class="flex items-baseline">
-                <h3 class="">
-                    <a href="/articles/{{ $article->slug }}">{{ $article->title }}</a>
+        <article class="{{ $loop->first ? '' : 'mt-3 border-t pt-3' }}">
+            <div class="flex flex-col sm:flex-row sm:items-baseline">
+                <h3 class="text-lg tracking-wide font-bold">
+                    <a class="underline" href="/articles/{{ $article->slug }}">{{ $article->title }}</a>
                 </h3>
-                <span class="ml-2 text-xs italic">{{ optional($article->published_at)->diffForHumans() }} door <a href="/users/{{ $article->author->id }}">{{ $article->author->name }}</a></span>
+                <span class="text-sm italic">{{ optional($article->published_at)->diffForHumans() }} door <a class="underline" href="/users/{{ $article->author->id }}">{{ $article->author->name }}</a></span>
             </div>
-            <div class="flex space-x-1">
+            <div class="flex flex-wrap">
                 @foreach ($article->locations as $location)
-                    <span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium leading-4 bg-indigo-100 text-indigo-800">{{ $location->title }}</span>
+                    <span class="mt-1 mr-1 inline-flex items-center px-2 py-0.5 rounded text-xs font-medium leading-4 bg-cool-gray-100 text-cool-gray-600">{{ $location->title }}</span>
                 @endforeach
             </div>
-            <div class="">
+            <div class="mt-3">
                 @markdown($article->excerpt)
             </div>
         </article>
