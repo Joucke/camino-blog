@@ -36,6 +36,11 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+    public function getNameAttribute($name)
+    {
+        return htmlentities($name);
+    }
+
     public function articles()
     {
         return $this->hasMany(Article::class, 'author_id');

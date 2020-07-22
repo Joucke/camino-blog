@@ -67,6 +67,9 @@ class ArticleController extends Controller
      */
     public function show(PublishedArticle $article)
     {
+        $article->load('locations');
+        $article->locations->sortBy('title');
+
         return view('articles.show', [
             'article' => $article,
         ]);

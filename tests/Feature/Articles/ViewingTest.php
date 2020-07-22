@@ -1,6 +1,7 @@
 <?php
 
 use App\Article;
+use App\Location;
 use App\User;
 use GrahamCampbell\Markdown\Facades\Markdown;
 
@@ -54,8 +55,19 @@ test('the index shows the first paragraph of the article', function () {
 test('the index shows the article tags')
     ->markTestIncomplete();
 
-test('the index shows the article location')
-    ->markTestIncomplete();
+test('the index shows the article location', function () {
+    $article = factory(Article::class)->create([
+        'title' => 'my article',
+        'body' => "the article\r\nsecond paragraph",
+        'published_at' => now(),
+    ]);
+    $home = factory(Location::class)->create(['title' => 'own house']);
+    $article->locations()->attach($home);
+
+    $this->get('/')
+        ->assertSee('<p>own house</p>', false)
+        ;
+});
 
 test('guests can view a published article', function () {
     $article = factory(Article::class)->states('published')->create();
@@ -99,5 +111,23 @@ test('users can view an unpublished article', function () {
         ->assertSee($article->title)
         ->assertSee($article->author->name)
         ->assertSee($parsedBody, false)
+        ;
+});
+
+test('guests can see a map with the article locations', function () {
+    $article = factory(Article::class)->states('published')->create();
+    $locations = factory(Location::class, 3)->create()->sortBy('title');
+    $article->locations()->attach($locations);
+
+    $locationTitles = $locations->pluck('title');
+
+    $this->get('/articles/'.$article->slug)
+        ->assertOk()
+        ->assertSeeInOrder([
+            'article-map',
+            $locationTitles[0],
+            $locationTitles[1],
+            $locationTitles[2],
+        ])
         ;
 });
