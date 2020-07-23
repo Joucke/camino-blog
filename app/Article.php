@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Str;
 
 class Article extends Model
@@ -18,15 +19,6 @@ class Article extends Model
         return Str::substr($firstParagraph, 0, 200);
     }
 
-    public function getTitleMarkdownAttribute()
-    {
-        return sprintf(
-            '### [%s](/articles/%s)',
-            $this->title,
-            $this->slug
-        );
-    }
-
     public function getRouteKeyName()
     {
         return 'slug';
@@ -39,7 +31,19 @@ class Article extends Model
 
     public function locations()
     {
-        return $this->belongsToMany(Location::class, 'article_location', 'article_id');
+        return $this->belongsToMany(
+            Location::class,
+            'article_location',
+            'article_id'
+        );
+    }
+
+    public function publish(Carbon $when = null)
+    {
+        if (!$when) {
+            $when = now();
+        }
+        $this->update(['published_at' => $when]);
     }
 
     protected static function booted()
