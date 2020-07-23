@@ -1,6 +1,7 @@
 <?php
 
 use App\Article;
+use App\Location;
 use App\User;
 
 it('loads the home page')
@@ -52,11 +53,18 @@ test('users see a link to add an article', function () {
         ->assertSee('/articles/create');
 });
 
+test('guests see a link to "map view" on the home page', function () {
+    $location = factory(Location::class)->create();
+    $article = factory(Article::class)->states('published')->create();
+    $article->locations()->attach($location);
+
+    $this->get('/')
+        ->assertSee('article-map')
+        ->assertSee('"title":"'.$location->title.'"');
+});
+
 test('guests see a list of tags on the home page')
     ->markTestIncomplete();
 
 test('guests see a calendar view on the home page')
-    ->markTestIncomplete();
-
-test('guests see a link to "map view" on the home page')
     ->markTestIncomplete();

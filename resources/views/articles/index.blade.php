@@ -35,7 +35,12 @@
             <a href="/articles/create">Blog schrijven</a>
         @endauth
         <aside>lijst met tags?</aside>
-        <aside>kaart-overzicht?</aside>
+        <aside class="mt-6">
+            <article-map
+                class="w-full h-64"
+                :locations="{{ $locations }}">
+            </article-map>
+        </aside>
         <aside>kalender-overzicht?</aside>
     </div>
 </main>

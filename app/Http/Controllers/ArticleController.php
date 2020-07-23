@@ -23,7 +23,9 @@ class ArticleController extends Controller
         $articles = PublishedArticle::latest('published_at')
             ->with('author:id,name')
             ->paginate();
-        return view('articles.index', compact('articles'));
+        $locations = $articles->pluck('locations')->flatten();
+
+        return view('articles.index', compact('articles', 'locations'));
     }
 
     /**
@@ -120,6 +122,8 @@ class ArticleController extends Controller
      */
     public function destroy(Article $article)
     {
-        // TODO: delete an Article $article
+        $article->delete();
+
+        return redirect('/');
     }
 }

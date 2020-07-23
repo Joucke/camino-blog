@@ -122,7 +122,11 @@ export default {
         };
     },
     mounted () {
-        fetch('/locations')
+        fetch('/locations', {
+            headers: {
+                'accept': 'application/json'
+            }
+        })
             .then(response => response.json())
             .then(data => this.locations = data);
     },
@@ -159,7 +163,11 @@ export default {
             navigator.geolocation.getCurrentPosition(
                 ({coords}) => {
                     let url = `/geocode-reverse?lat=${encodeURIComponent(coords.latitude)}&lng=${encodeURIComponent(coords.longitude)}`;
-                    fetch(url)
+                    fetch(url, {
+                        headers: {
+                            accept: 'application/json'
+                        }
+                    })
                         .then(response => response.json())
                         .then((data) => {
                             this.results = [data];
@@ -175,7 +183,11 @@ export default {
         },
         searchLocation () {
             let url = `/geocode-search?q=${encodeURIComponent(this.search)}`;
-            fetch(url)
+            fetch(url, {
+                headers: {
+                    accept: 'application/json'
+                }
+            })
                 .then(response => response.json())
                 .then((data) => {
                     this.results = data;

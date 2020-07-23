@@ -22,8 +22,8 @@ test('the index has a link to an article', function () {
 
     $this->get('/')
         ->assertSeeInOrder([
-            '<h3>',
-            '<a href="/articles/my-article">my article</a>',
+            '<h3',
+            'href="/articles/my-article">my article</a>',
             '</h3>'
         ], false);
 });
@@ -36,7 +36,7 @@ test('the index has a link to the article author', function () {
     ]);
 
     $this->get('/')
-        ->assertSee('<a href="/users/1">'.$article->author->name.'</a>', false);
+        ->assertSee('href="/users/1">'.$article->author->name.'</a>', false);
 });
 
 test('the index shows the first paragraph of the article', function () {
@@ -65,7 +65,7 @@ test('the index shows the article location', function () {
     $article->locations()->attach($home);
 
     $this->get('/')
-        ->assertSee('<p>own house</p>', false)
+        ->assertSee('own house')
         ;
 });
 

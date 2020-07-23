@@ -18,13 +18,20 @@
         </div>
     </div>
     <div class="p-4 w-full sm:w-64">
+        <aside>
+            <article-map
+                class="w-full h-64"
+                :locations="{{ $article->locations }}"
+            ></article-map>
+        </aside>
         @auth
             <a href="/articles/{{ $article->slug }}/edit">Bewerken</a>
+            <form action="/articles/{{ $article->slug }}" method="POST">
+                @csrf
+                @method('DELETE')
+                <button type="submit">Verwijderen</button>
+            </form>
         @endauth
-        <article-map
-            class="w-full h-64"
-            :locations="{{ $article->locations }}"
-        />
     </div>
 </main>
 @endsection

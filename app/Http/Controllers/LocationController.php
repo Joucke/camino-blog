@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Location;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 
 class LocationController extends Controller
 {
@@ -16,17 +15,26 @@ class LocationController extends Controller
     /**
      * Display a listing of the resource.
      *
+     * @param \Illuminate\Http\Request  $request
+     *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        return Location::latest()->get();
+        $locations = Location::latest()->get();
+
+        if ($request->wantsJson()) {
+            return $locations;
+        }
+
+        return view('locations.index', compact('locations'));
     }
 
     /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
+     *
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
@@ -40,12 +48,18 @@ class LocationController extends Controller
     /**
      * Display the specified resource.
      *
+     * @param  \Illuminate\Http\Request  $request
      * @param  \App\Location  $location
+     *
      * @return \Illuminate\Http\Response
      */
-    public function show(Location $location)
+    public function show(Request $request, Location $location)
     {
-        //
+        if ($request->wantsJson()) {
+            return $location;
+        }
+
+        return view('locations.show', compact('location'));
     }
 
     /**
@@ -53,21 +67,36 @@ class LocationController extends Controller
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  \App\Location  $location
+     *
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, Location $location)
     {
-        //
+        $location->update($request->only(['title', 'latitude', 'longitude']));
+
+        if ($request->wantsJson()) {
+            return $location;
+        }
+
+        return redirect('/locations/'.$location->id);
     }
 
     /**
      * Remove the specified resource from storage.
      *
+     * @param  \Illuminate\Http\Request  $request
      * @param  \App\Location  $location
+     *
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Location $location)
+    public function destroy(Request $request, Location $location)
     {
-        //
+        if ($location->articles->isEmpty()) {
+            $location->delete();
+        }
+        else {
+            $request->session()->flash('error', 'Een locatie kan alleen verwijderd worden wanneer deze niet aan een of meer blogs is gekoppeld.');
+        }
+        return redirect('/locations');
     }
 }
