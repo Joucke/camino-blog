@@ -40,4 +40,6 @@
 </portal-target>
 <portal-target name="add-location-modal">
 </portal-target>
+<portal-target name="add-tag-modal">
+</portal-target>
 @endsection

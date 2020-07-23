@@ -60,6 +60,11 @@ class ArticleController extends Controller
             $locations = $request->input('locations');
             $article->locations()->attach($locations);
         }
+
+        if ($request->has('tags')) {
+            $tags = $request->input('tags');
+            $article->tags()->attach($tags);
+        }
         return redirect('/');
     }
 

@@ -28,19 +28,17 @@ test('users can delete a location', function () {
 });
 
 test('users can only delete a location that is no longer used', function () {
-    $user = factory(User::class)->create();
     $location = factory(Location::class)->create();
-    $article = $user->articles()->create(factory(Article::class)->states('published')->raw());
+    $article = factory(Article::class)->states('published')->create();
     $article->locations()->attach($location);
     $this->assertCount(1, Location::all());
 
-    $this->actingAs(factory(User::class)->create())
+    $this->actingAs($article->author)
         ->get('/locations')
         ->assertOk()
         ->assertSee('Verwijderen');
 
-    $this->withoutExceptionHandling()
-        ->delete('/locations/1')
+    $this->delete('/locations/1')
         ->assertRedirect('/locations')
         ->assertSessionHas('error')
     ;

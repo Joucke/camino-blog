@@ -38,6 +38,15 @@ class Article extends Model
         );
     }
 
+    public function tags()
+    {
+        return $this->belongsToMany(
+            Tag::class,
+            'article_tag',
+            'article_id',
+        );
+    }
+
     public function publish(Carbon $when = null)
     {
         if (!$when) {

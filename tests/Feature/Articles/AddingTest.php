@@ -2,6 +2,7 @@
 
 use App\Article;
 use App\Location;
+use App\Tag;
 use App\User;
 
 test('guests cannot add an article', function () {
@@ -69,5 +70,21 @@ test('users can add a location when creating an article', function () {
     $this->assertTrue($article->locations->first()->is($location));
 });
 
-test('users can add tags when creating an article')
-    ->markTestIncomplete();
+test('users can add tags when creating an article', function () {
+    $tag = factory(Tag::class)->create();
+
+    $this->actingAs(factory(User::class)->create())
+        ->post('/articles', [
+            'title' => 'my article',
+            'body' => 'this is my article',
+            'tags' => [
+                $tag->id,
+            ],
+        ])
+        ->assertRedirect('/');
+
+    $this->assertCount(1, Article::all());
+    $article = Article::first();
+    $this->assertCount(1, $article->tags);
+    $this->assertTrue($article->tags->first()->is($tag));
+});
