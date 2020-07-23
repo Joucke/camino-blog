@@ -34,3 +34,7 @@ test('users can upload photos', function () {
     $this->assertTrue($photos->contains('path', now()->format('Y-m-d') . '/' . $landscape->hashName()));
     $this->assertTrue($photos->contains('path', now()->format('Y-m-d') . '/' . $person->hashName()));
 });
+
+test('validation', function () {
+    //
+})->markTestIncomplete();

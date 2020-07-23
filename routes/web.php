@@ -23,4 +23,9 @@ Route::resource('locations', 'LocationController');
 Route::get('/geocode-search', 'GeocodeController@search');
 Route::get('/geocode-reverse', 'GeocodeController@reverse');
 
-Route::resource('tags', 'TagController')->only(['index', 'store', 'update', 'destroy']);
+Route::resource('tags', 'TagController')->only([
+    'index',
+    'store',
+    'update',
+    'destroy',
+]);

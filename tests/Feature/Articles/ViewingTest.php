@@ -2,6 +2,7 @@
 
 use App\Article;
 use App\Location;
+use App\Tag;
 use App\User;
 use GrahamCampbell\Markdown\Facades\Markdown;
 
@@ -52,9 +53,6 @@ test('the index shows the first paragraph of the article', function () {
         ;
 });
 
-test('the index shows the article tags')
-    ->markTestIncomplete();
-
 test('the index shows the article location', function () {
     $article = factory(Article::class)->create([
         'title' => 'my article',
@@ -68,6 +66,14 @@ test('the index shows the article location', function () {
         ->assertSee('own house')
         ;
 });
+
+test('the index filters on location', function () {
+    //
+})->markTestIncomplete();
+
+test('the index filters on tag', function () {
+    //
+})->markTestIncomplete();
 
 test('guests can view a published article', function () {
     $article = factory(Article::class)->states('published')->create();
@@ -128,6 +134,24 @@ test('guests can see a map with the article locations', function () {
             $locationTitles[0],
             $locationTitles[1],
             $locationTitles[2],
+        ])
+        ;
+});
+
+test('guests can see a list with article tags', function () {
+    $article = factory(Article::class)->states('published')->create();
+    $tags = factory(Tag::class, 3)->create();
+    $article->tags()->attach($tags);
+
+    $tagTitles = $tags->sortBy('title')->pluck('title');
+
+    $this->withoutExceptionHandling()
+        ->get('/articles/'.$article->slug)
+        ->assertOk()
+        ->assertSeeInOrder([
+            $tagTitles[0],
+            $tagTitles[1],
+            $tagTitles[2],
         ])
         ;
 });

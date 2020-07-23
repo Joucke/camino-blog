@@ -47,9 +47,9 @@ class Article extends Model
         );
     }
 
-    public function publish(Carbon $when = null)
+    public function publish(?Carbon $when = null)
     {
-        if (!$when) {
+        if (! $when) {
             $when = now();
         }
         $this->update(['published_at' => $when]);

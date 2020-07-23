@@ -21,3 +21,7 @@ test('users can add tags', function () {
 
     $this->assertCount(1, Tag::all());
 });
+
+test('validation', function () {
+    //
+})->markTestIncomplete();

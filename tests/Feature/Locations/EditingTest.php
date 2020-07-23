@@ -43,3 +43,11 @@ test('users can update a location', function () {
             'longitude' => 54,
         ]);
 });
+
+test('users can udpate a location from the article page', function () {
+    // TODO: dusk test?
+})->markTestIncomplete();
+
+test('validation', function () {
+    //
+})->markTestIncomplete();

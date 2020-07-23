@@ -77,12 +77,17 @@ class ArticleController extends Controller
      */
     public function show(PublishedArticle $article)
     {
-        $article->load('locations');
+        $article->load('locations', 'tags');
         $article->locations->sortBy('title');
+        $article->tags->sortBy('title');
 
-        return view('articles.show', [
-            'article' => $article,
-        ]);
+        $taggables = collect($article->locations)
+            ->push(...$article->tags)
+            ->sortBy(function ($taggable) {
+                return Str::lower($taggable->title);
+            });
+
+        return view('articles.show', compact('article', 'taggables'));
     }
 
     /**
@@ -116,6 +121,11 @@ class ArticleController extends Controller
         if ($request->has('locations')) {
             $locations = $request->input('locations');
             $article->locations()->sync($locations);
+        }
+
+        if ($request->has('tags')) {
+            $tags = $request->input('tags');
+            $article->tags()->sync($tags);
         }
 
         return redirect('/articles/'.$article->slug);

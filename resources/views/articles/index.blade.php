@@ -31,16 +31,18 @@
         @endforelse
     </div>
     <div class="p-4 w-full sm:w-64 flex-shrink-0">
-        @auth
-            <a href="/articles/create">Blog schrijven</a>
-        @endauth
-        <aside>lijst met tags?</aside>
         <aside class="mt-6">
             <article-map
                 class="w-full h-64"
                 :locations="{{ $locations }}">
             </article-map>
         </aside>
+        @auth
+        <aside class="mt-6">
+            <a href="/articles/create">Blog schrijven</a>
+        </aside>
+        @endauth
+        <aside>lijst met tags?</aside>
         <aside>kalender-overzicht?</aside>
     </div>
 </main>

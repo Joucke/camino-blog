@@ -7,8 +7,8 @@
         <em class="text-xs">
             {{ $article->author->name }}, {{ optional($article->published_at)->diffForHumans() ?? 'nog niet gepubliceerd'}}</em>
         <div class="flex flex-wrap">
-            @foreach ($article->locations as $location)
-                <span class="mr-1 mt-1 inline-flex items-center px-2 py-0.5 rounded text-xs font-medium leading-4 bg-indigo-100 text-indigo-800">{{ $location->title }}</span>
+            @foreach ($taggables as $tag)
+                <span class="mr-1 mt-1 inline-flex items-center px-2 py-0.5 rounded text-xs font-medium leading-4 bg-indigo-100 text-indigo-800">{{ $tag->title }}</span>
             @endforeach
         </div>
         <div class="prose mt-6">

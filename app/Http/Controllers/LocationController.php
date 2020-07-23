@@ -93,8 +93,8 @@ class LocationController extends Controller
     {
         if ($location->articles->isEmpty()) {
             $location->delete();
-        }
-        else {
+        } else {
+            // TODO: move to translation file
             $request->session()->flash('error', 'Een locatie kan alleen verwijderd worden wanneer deze niet aan een of meer blogs is gekoppeld.');
         }
         return redirect('/locations');

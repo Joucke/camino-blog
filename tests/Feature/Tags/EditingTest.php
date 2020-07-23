@@ -17,3 +17,11 @@ test('users can update tags', function () {
 
     $this->assertSame('foobar', $tag->fresh()->title);
 });
+
+test('users can edit a tag from the article page', function () {
+    //
+})->markTestIncomplete();
+
+test('validation', function () {
+    //
+})->markTestIncomplete();

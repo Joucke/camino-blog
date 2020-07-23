@@ -29,3 +29,7 @@ test('a user can supply these fields for a location', function () {
 
     $this->assertCount(1, Location::all());
 });
+
+test('validation', function () {
+    //
+})->markTestIncomplete();

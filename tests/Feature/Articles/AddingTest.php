@@ -88,3 +88,7 @@ test('users can add tags when creating an article', function () {
     $this->assertCount(1, $article->tags);
     $this->assertTrue($article->tags->first()->is($tag));
 });
+
+test('validation', function () {
+    //
+})->markTestIncomplete();
