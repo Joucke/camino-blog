@@ -23,7 +23,10 @@ class ArticleController extends Controller
         $articles = PublishedArticle::latest('published_at')
             ->with('author:id,name')
             ->paginate();
-        $locations = $articles->pluck('locations')->flatten();
+        $locations = $articles->pluck('locations')
+            ->flatten()
+            ->unique('id')
+            ->values();
 
         return view('articles.index', compact('articles', 'locations'));
     }
