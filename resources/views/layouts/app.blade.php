@@ -20,6 +20,8 @@
 </head>
 <body>
     <div id="app">
+        <!-- Header image by Condor3d: https://commons.wikimedia.org/wiki/User:Condor3d -->
+        <!-- Source: https://commons.wikimedia.org/wiki/File:Jabikspaad_wegwijzer.jpg -->
         <header class="relative bg-cover bg-center" style="background-image: url('/storage/Jabikspaad.jpg')">
             <nav class="flex justify-between bg-white bg-opacity-75 px-4 py-3">
                 <div class="">

@@ -30,7 +30,7 @@
         </article>
         @endforelse
     </div>
-    <div class="p-4 w-full sm:w-64">
+    <div class="p-4 w-full sm:w-64 flex-shrink-0">
         @auth
             <a href="/articles/create">Blog schrijven</a>
         @endauth
