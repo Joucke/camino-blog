@@ -2,7 +2,7 @@
 
 @section('content')
 <main class="flex flex-col sm:flex-row w-full">
-    <div class="p-4 pr-0 flex-grow">
+    <div class="p-4 sm:pr-0 flex-grow">
         <nav class="flex items-center justify-between text-sm leading-5 font-medium">
             <div class="w-full flex flex-grow-0 items-center">
                 @if($parent)
@@ -36,7 +36,7 @@
                 </taggable-manager>
             @endforeach
             </div>
-            <div class="mt-3">
+            <div class="mt-3 prose">
                 @markdown($article->excerpt)
             </div>
         </article>
