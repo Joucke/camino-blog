@@ -12,7 +12,7 @@ test('users can update tags', function () {
     $tag = factory(Tag::class)->create();
 
     $this->actingAs(factory(User::class)->create())
-        ->patchJson('/tags/1', ['title' => 'foobar'])
+        ->patchJson($tag->url, ['title' => 'foobar'])
         ->assertOk();
 
     $this->assertSame('foobar', $tag->fresh()->title);

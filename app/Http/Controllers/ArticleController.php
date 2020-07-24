@@ -81,13 +81,7 @@ class ArticleController extends Controller
         $article->locations->sortBy('title');
         $article->tags->sortBy('title');
 
-        $taggables = collect($article->locations)
-            ->push(...$article->tags)
-            ->sortBy(function ($taggable) {
-                return Str::lower($taggable->title);
-            });
-
-        return view('articles.show', compact('article', 'taggables'));
+        return view('articles.show', compact('article'));
     }
 
     /**

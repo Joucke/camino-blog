@@ -47,6 +47,9 @@ class TagController extends Controller
     public function update(Request $request, Tag $tag)
     {
         $tag->update($request->only('title'));
+        if ($request->has('pivot')) {
+            $tag->pivot = $request->input('pivot');
+        }
         return $tag;
     }
 

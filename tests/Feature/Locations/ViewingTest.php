@@ -28,11 +28,12 @@ test('users can get raw location data', function () {
 });
 
 test('guests cannot get raw single location data', function () {
-    factory(Location::class)->create();
-    $this->get('/locations/1')
+    $location = factory(Location::class)->create();
+
+    $this->get($location->url)
         ->assertRedirect('/login');
 
-    $this->getJson('/locations/1')
+    $this->getJson($location->url)
         ->assertUnauthorized();
 });
 
@@ -41,11 +42,11 @@ test('users can get raw single location data', function () {
 
     $this->actingAs(factory(User::class)->create())
         ->withoutExceptionHandling()
-        ->get('/locations/1')
+        ->get($location->url)
         ->assertOk()
         ->assertSee($location->title);
 
-    $this->getJson('/locations/1')
+    $this->getJson($location->url)
         ->assertOk()
         ->assertJson($location->toArray());
 });

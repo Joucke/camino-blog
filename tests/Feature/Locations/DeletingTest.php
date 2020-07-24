@@ -21,7 +21,7 @@ test('users can delete a location', function () {
         ->assertOk()
         ->assertSee('Verwijderen');
 
-    $this->delete('/locations/1')
+    $this->delete($l->url)
         ->assertRedirect('/locations');
 
     $this->assertCount(0, Location::all());
@@ -38,7 +38,7 @@ test('users can only delete a location that is no longer used', function () {
         ->assertOk()
         ->assertSee('Verwijderen');
 
-    $this->delete('/locations/1')
+    $this->delete($location->url)
         ->assertRedirect('/locations')
         ->assertSessionHas('error')
     ;

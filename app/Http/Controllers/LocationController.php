@@ -75,10 +75,13 @@ class LocationController extends Controller
         $location->update($request->only(['title', 'latitude', 'longitude']));
 
         if ($request->wantsJson()) {
+            if ($request->has('pivot')) {
+                $location->pivot = $request->input('pivot');
+            }
             return $location;
         }
 
-        return redirect('/locations/'.$location->id);
+        return redirect($location->url);
     }
 
     /**

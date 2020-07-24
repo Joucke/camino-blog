@@ -2,12 +2,15 @@
 
 namespace App;
 
+use App\Traits\HasSlug;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Str;
 
 class Article extends Model
 {
+    use HasSlug;
+
     protected $guarded = [];
     protected $casts = [
         'published_at' => 'datetime',
@@ -19,9 +22,15 @@ class Article extends Model
         return Str::substr($firstParagraph, 0, 200);
     }
 
-    public function getRouteKeyName()
+    public function getTaggablesAttribute()
     {
-        return 'slug';
+        $this->load('locations', 'tags');
+
+        return collect($this->locations)
+            ->push(...$this->tags)
+            ->sortBy(function ($taggable) {
+                return Str::lower($taggable->title);
+            });
     }
 
     public function author()
@@ -53,12 +62,5 @@ class Article extends Model
             $when = now();
         }
         $this->update(['published_at' => $when]);
-    }
-
-    protected static function booted()
-    {
-        static::saving(function (Article $article) {
-            $article->slug = Str::slug($article->title);
-        });
     }
 }

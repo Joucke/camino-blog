@@ -25,6 +25,7 @@ Vue.component('blog-textarea', require('./components/BlogTextarea.vue').default)
 Vue.component('image-preview', require('./components/ImagePreview.vue').default);
 Vue.component('location-select', require('./components/LocationSelect.vue').default);
 Vue.component('tag-select', require('./components/TagSelect.vue').default);
+Vue.component('taggable-manager', require('./components/TaggableManager.vue').default);
 Vue.component('upload-form', require('./components/UploadForm.vue').default);
 
 import PortalVue from 'portal-vue'

@@ -12,9 +12,13 @@
                 <span class="text-sm italic sm:ml-3 sm:text-xs">{{ optional($article->published_at)->diffForHumans() }} door <a class="underline" href="/users/{{ $article->author->id }}">{{ $article->author->name }}</a></span>
             </div>
             <div class="flex flex-wrap">
-                @foreach ($article->locations as $location)
-                    <span class="mt-1 mr-1 inline-flex items-center px-2 py-0.5 rounded text-xs font-medium leading-4 bg-cool-gray-100 text-cool-gray-600">{{ $location->title }}</span>
-                @endforeach
+            @foreach ($article->taggables as $tag)
+                <taggable-manager :tag="{{ $tag }}">
+                    <template v-slot:default="{taggable}">
+                        <a :href="taggable.url" class="mt-1 mr-1 inline-flex items-center px-2 py-0.5 rounded text-xs font-medium leading-4 bg-cool-gray-100 text-cool-gray-600">@{{ taggable.title }}</span>
+                    </template>
+                </taggable-manager>
+            @endforeach
             </div>
             <div class="mt-3">
                 @markdown($article->excerpt)
@@ -49,4 +53,8 @@
 <nav>
     {{ $articles->onEachSide(1)->links() }}
 </nav>
+<portal-target name="manage-tag-modal">
+</portal-target>
+<portal-target name="manage-location-modal">
+</portal-target>
 @endsection

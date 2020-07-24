@@ -67,6 +67,20 @@ test('the index shows the article location', function () {
         ;
 });
 
+test('the index shows the article tags', function () {
+    $article = factory(Article::class)->create([
+        'title' => 'my article',
+        'body' => "the article\r\nsecond paragraph",
+        'published_at' => now(),
+    ]);
+    $home = factory(Tag::class)->create(['title' => 'own house']);
+    $article->tags()->attach($home);
+
+    $this->get('/')
+        ->assertSee('own house')
+        ;
+});
+
 test('the index filters on location', function () {
     //
 })->markTestIncomplete();

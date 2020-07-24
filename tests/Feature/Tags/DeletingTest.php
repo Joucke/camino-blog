@@ -15,7 +15,7 @@ test('users can delete tags', function () {
     $this->assertCount(1, Tag::all());
 
     $this->actingAs(factory(User::class)->create())
-        ->deleteJson('/tags/1')
+        ->deleteJson($tag->url)
         ->assertOk()
         ->assertJson([]);
 
@@ -30,7 +30,7 @@ test('only tags without articles can be deleted', function () {
 
     $response = $this->actingAs($article->author)
         ->withoutExceptionHandling()
-        ->deleteJson('/tags/1')
+        ->deleteJson($tag->url)
         ->assertStatus(422)
         ->json()
     ;
