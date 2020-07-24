@@ -59,8 +59,10 @@ export default {
             this.touchTimeout = setTimeout(this.openModal, 500);
         },
         touchend (e) {
+            if (this.touchTimeout) {
+                clearTimeout(this.touchTimeout);
+            }
             e.preventDefault();
-            clearTimeout(this.touchTimeout);
         },
     },
 }
