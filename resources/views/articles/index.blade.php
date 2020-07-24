@@ -52,11 +52,6 @@
                 :locations="{{ $locations }}">
             </article-map>
         </aside>
-        @auth
-        <aside class="mt-6">
-            <a href="/articles/create" class="inline-flex w-full justify-center py-2 px-4 border border-transparent text-sm leading-5 font-medium rounded-md text-yellow-200 bg-blue-800 hover:bg-blue-900 focus:outline-none focus:border-blue-700 focus:shadow-outline-blue active:bg-blue-900 transition duration-150 ease-in-out">Blog schrijven</a>
-        </aside>
-        @endauth
         <aside class="mt-6">
             <h4>Tags</h4>
             <div>
@@ -77,6 +72,11 @@
             @endforeach
             @endforeach
         </aside>
+        @auth
+        <aside class="mt-6">
+            <a href="/articles/create" class="inline-flex w-full justify-center py-2 px-4 border border-transparent text-sm leading-5 font-medium rounded-md text-yellow-200 bg-blue-800 hover:bg-blue-900 focus:outline-none focus:border-blue-700 focus:shadow-outline-blue active:bg-blue-900 transition duration-150 ease-in-out">Blog schrijven</a>
+        </aside>
+        @endauth
     </div>
 </main>
 <nav>
