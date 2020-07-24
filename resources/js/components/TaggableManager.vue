@@ -61,6 +61,7 @@ export default {
         touchend (e) {
             if (this.touchTimeout) {
                 clearTimeout(this.touchTimeout);
+                e.target.click();
             }
             e.preventDefault();
         },

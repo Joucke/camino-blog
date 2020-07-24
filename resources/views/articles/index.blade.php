@@ -3,7 +3,7 @@
 @section('content')
 <main class="flex flex-col sm:flex-row w-full">
     <div class="p-4 flex-grow">
-        <nav class="hidden sm:flex items-center text-sm leading-5 font-medium">
+        <nav class="flex items-center text-sm leading-5 font-medium">
             @if($parent)
             <a href="/" class="text-blue-500 hover:text-blue-700 hover:underline transition duration-150 ease-in-out">Alle blogs</a>
             <svg class="flex-shrink-0 mx-2 h-5 w-5 text-blue-400" viewBox="0 0 20 20" fill="currentColor">
