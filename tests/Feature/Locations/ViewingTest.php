@@ -27,16 +27,6 @@ test('users can get raw location data', function () {
         ->assertJson($locations->toArray());
 });
 
-test('guests cannot get raw single location data', function () {
-    $location = factory(Location::class)->create();
-
-    $this->get($location->url)
-        ->assertRedirect('/login');
-
-    $this->getJson($location->url)
-        ->assertUnauthorized();
-});
-
 test('users can get raw single location data', function () {
     $location = factory(Location::class)->create();
 
