@@ -75,7 +75,7 @@ export default {
         };
     },
     mounted () {
-        this.$refs.focusInput.focus();
+        this.$refs.focusInput.focus().click();
         document.addEventListener('keyup', this.keyListener);
     },
     destroyed () {
