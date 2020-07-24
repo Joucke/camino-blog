@@ -59,7 +59,8 @@ class LocationController extends Controller
             return $location;
         }
 
-        return view('locations.show', compact('location'));
+        $articles = $location->articles()->forIndex();
+        return (new ArticleController)->index($request, $articles, $location);
     }
 
     /**

@@ -14,7 +14,7 @@
                 :lat-lng="latLng(location.latitude, location.longitude)">
                 <l-popup>
                     <h2 class="font-bold text-base">{{ location.title }}</h2>
-                    <a :href="`/?location=${location.id}`">alles op deze locatie</a>
+                    <a :href="location.url">alles op deze locatie</a>
                 </l-popup>
             </l-marker>
 

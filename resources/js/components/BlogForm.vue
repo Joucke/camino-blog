@@ -2,7 +2,7 @@
     <div>
         <slot />
         <portal to="blog-form-modal">
-            <div v-show="showModal" class="fixed bottom-0 inset-x-0 px-4 pb-6 sm:inset-0 sm:p-0 sm:flex sm:items-center sm:justify-center">
+            <div v-show="showModal" class="z-1000 fixed bottom-0 inset-x-0 px-4 pb-6 sm:inset-0 sm:p-0 sm:flex sm:items-center sm:justify-center">
                 <transition
                     enter-active-class="ease-out duration-300"
                     enter-class="opacity-0"

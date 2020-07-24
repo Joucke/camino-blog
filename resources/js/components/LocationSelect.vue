@@ -9,7 +9,7 @@
              class="ml-2 h-auto inline-flex justify-center w-1/2 py-2 px-4 border border-transparent text-sm leading-5 font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-500 focus:outline-none focus:border-indigo-700 focus:shadow-outline-indigo active:bg-indigo-700 transition duration-150 ease-in-out"
         >nieuwe locatie toevoegen</button>
         <portal to="add-location-modal">
-            <div v-show="showModal" class="fixed bottom-0 inset-x-0 px-4 pb-6 sm:inset-0 sm:p-0 sm:flex sm:items-center sm:justify-center">
+            <div v-show="showModal" class="z-1000 fixed bottom-0 inset-x-0 px-4 pb-6 sm:inset-0 sm:p-0 sm:flex sm:items-center sm:justify-center">
                 <transition
                     enter-active-class="ease-out duration-300"
                     enter-class="opacity-0"

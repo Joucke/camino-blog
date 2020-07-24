@@ -19,7 +19,7 @@
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 </head>
 <body>
-    <div id="app">
+    <div id="app" class="text-blue-900">
         <!-- Header image by Condor3d: https://commons.wikimedia.org/wiki/User:Condor3d -->
         <!-- Source: https://commons.wikimedia.org/wiki/File:Jabikspaad_wegwijzer.jpg -->
         <header class="relative bg-cover bg-center" style="background-image: url('/storage/Jabikspaad.jpg')">

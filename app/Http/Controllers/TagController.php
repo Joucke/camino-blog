@@ -37,6 +37,24 @@ class TagController extends Controller
     }
 
     /**
+     * Display the specified resource.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Tag  $tag
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function show(Request $request, Tag $tag)
+    {
+        if ($request->wantsJson()) {
+            return $tag;
+        }
+
+        $articles = $tag->articles()->forIndex();
+        return (new ArticleController)->index($request, $articles, $tag);
+    }
+
+    /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -50,6 +68,7 @@ class TagController extends Controller
         if ($request->has('pivot')) {
             $tag->pivot = $request->input('pivot');
         }
+        $tag->articles_count = $tag->articles()->count();
         return $tag;
     }
 

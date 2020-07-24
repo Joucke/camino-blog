@@ -4,7 +4,12 @@ namespace App\Http\Controllers;
 
 use App\Article;
 use App\PublishedArticle;
+use App\Tag;
+use Illuminate\Contracts\Pagination\LengthAwarePaginator;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 
 class ArticleController extends Controller
@@ -18,17 +23,25 @@ class ArticleController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request, ?LengthAwarePaginator $articles = null, ?Model $parent = null)
     {
-        $articles = PublishedArticle::latest('published_at')
-            ->with('author:id,name')
-            ->paginate();
+        $articles = $articles ?? PublishedArticle::forIndex();
+
         $locations = $articles->pluck('locations')
             ->flatten()
             ->unique('id')
             ->values();
 
-        return view('articles.index', compact('articles', 'locations'));
+        $tags = Tag::withCount('articles')->orderBy('articles_count', 'desc')->orderBy('title')->get();
+
+        $history = DB::table('articles')->whereNotNull('published_at')->select(DB::raw('count(*) articles_count, DATE_FORMAT(`published_at`, "%y-%m-01") published_month'))->groupBy('published_month')->orderBy('published_month', 'desc')->get()->map(function ($item) {
+                $item->published_month = Carbon::create($item->published_month);
+                return $item;
+            })->groupBy(function ($item) {
+            return $item->published_month->format('Y');
+        });
+
+        return view('articles.index', compact('articles', 'locations', 'parent', 'tags', 'history'));
     }
 
     /**

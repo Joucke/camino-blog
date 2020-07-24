@@ -1,7 +1,7 @@
 <template>
     <div>
         <slot v-bind:taggable="taggable"></slot>
-        <portal to="manage-location-modal" v-if="taggable.pivot.location_id">
+        <portal to="manage-location-modal" v-if="taggable.url.includes('/locations/')">
             <location-modal
                 v-if="showModal"
                 :show="showModal"
@@ -10,7 +10,7 @@
                 :location="taggable">
             </location-modal>
         </portal>
-        <portal to="manage-tag-modal" v-if="taggable.pivot.tag_id">
+        <portal to="manage-tag-modal" v-if="taggable.url.includes('/tags/')">
             <tag-modal
                 v-if="showModal"
                 :show="showModal"

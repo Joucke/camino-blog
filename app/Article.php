@@ -3,6 +3,7 @@
 namespace App;
 
 use App\Traits\HasSlug;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Str;
@@ -24,7 +25,7 @@ class Article extends Model
 
     public function getTaggablesAttribute()
     {
-        $this->load('locations', 'tags');
+        $this->loadMissing('locations', 'tags');
 
         return collect($this->locations)
             ->push(...$this->tags)
@@ -62,5 +63,12 @@ class Article extends Model
             $when = now();
         }
         $this->update(['published_at' => $when]);
+    }
+
+    public function scopeForIndex(Builder $query)
+    {
+        return $query->latest('published_at')
+            ->with('author', 'tags', 'locations')
+            ->paginate();
     }
 }
