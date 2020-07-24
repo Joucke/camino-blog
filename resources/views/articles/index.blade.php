@@ -2,27 +2,32 @@
 
 @section('content')
 <main class="flex flex-col sm:flex-row w-full">
-    <div class="p-4 flex-grow">
-        <nav class="flex items-center text-sm leading-5 font-medium">
-            @if($parent)
-            <a href="/" class="text-blue-500 hover:text-blue-700 hover:underline transition duration-150 ease-in-out">Alle blogs</a>
-            <svg class="flex-shrink-0 mx-2 h-5 w-5 text-blue-400" viewBox="0 0 20 20" fill="currentColor">
-                <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd" />
-            </svg>
-            <span class="text-blue-700">{{ $parent->title ?? $parent->name }}</span>
-            @else
-            <span class="text-blue-700">Alle blogs</span>
-            @endif
+    <div class="p-4 pr-0 flex-grow">
+        <nav class="flex items-center justify-between text-sm leading-5 font-medium">
+            <div class="w-full flex flex-grow-0 items-center">
+                @if($parent)
+                <a href="/" class="text-blue-700 hover:text-blue-900 hover:underline transition duration-150 ease-in-out">Alle blogs</a>
+                <svg class="flex-shrink-0 mx-2 h-5 w-5 text-blue-700" viewBox="0 0 20 20" fill="currentColor">
+                    <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd" />
+                </svg>
+                <span class="text-blue-900">{{ $parent->title ?? $parent->name }}</span>
+                @else
+                <span class="text-blue-900">Alle blogs</span>
+                @endif
+            </div>
+            @auth
+            <a href="/articles/create" title="Blog schrijven" class="flex w-6 h-6 items-center justify-center rounded font-bold text-lg bg-blue-800 text-yellow-200 py-2 px-2">+</a>
+            @endauth
         </nav>
         @forelse($articles as $article)
         <article class="mt-3 border-t pt-3">
-            <div class="flex flex-col sm:flex-row sm:items-baseline">
+            <div class="flex flex-col md:flex-row md:items-baseline">
                 <h3 class="text-2xl tracking-wide font-bold">
                     <a class="" href="/articles/{{ $article->slug }}">{{ $article->title }}</a>
                 </h3>
-                <span class="text-sm italic sm:ml-3 sm:text-xs">{{ optional($article->published_at)->diffForHumans() }} door <a class="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium leading-4 bg-blue-100" href="/users/{{ $article->author->id }}">{{ $article->author->name }}</a></span>
+                <span class="italic md:ml-3 text-xs">{{ optional($article->published_at)->diffForHumans() }} door <a class="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium leading-4 bg-blue-100" href="/users/{{ $article->author->id }}">{{ $article->author->name }}</a></span>
             </div>
-            <div class="flex flex-wrap">
+            <div class="flex flex-wrap mt-2">
             @foreach ($article->taggables as $tag)
                 <taggable-manager :tag="{{ $tag }}">
                     <template v-slot:default="{taggable}">
@@ -68,15 +73,12 @@
             @foreach ($history as $year => $months)
             <h4 class="mt-2">{{ $year }}</h4>
             @foreach ($months as $month)
-            <a href="" class="block text-xs capitalize">{{ $month->published_month->isoFormat('MMMM') }} ({{ $month->articles_count }})</a>
+            <div>
+                <a href="" class="mt-1 mr-1 inline-flex items-center text-xs font-medium leading-4 capitalize">{{ $month->published_month->isoFormat('MMMM') }} ({{ $month->articles_count }})</a>
+            </div>
             @endforeach
             @endforeach
         </aside>
-        @auth
-        <aside class="mt-6">
-            <a href="/articles/create" class="inline-flex w-full justify-center py-2 px-4 border border-transparent text-sm leading-5 font-medium rounded-md text-yellow-200 bg-blue-800 hover:bg-blue-900 focus:outline-none focus:border-blue-700 focus:shadow-outline-blue active:bg-blue-900 transition duration-150 ease-in-out">Blog schrijven</a>
-        </aside>
-        @endauth
     </div>
 </main>
 <nav>
