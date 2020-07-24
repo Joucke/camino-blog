@@ -27,8 +27,8 @@ test('users can update a location', function () {
 
     tap($this->location->fresh(), function ($location) {
         $this->assertSame('new title', $location->title);
-        $this->assertSame('14', $location->latitude);
-        $this->assertSame('27', $location->longitude);
+        $this->assertSame('14.00000000', $location->latitude);
+        $this->assertSame('27.00000000', $location->longitude);
 
         $this->patchJson($location->url, [
                 'title' => 'newer title',

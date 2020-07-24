@@ -37,7 +37,8 @@ test('the index has a link to the article author', function () {
     ]);
 
     $this->get('/')
-        ->assertSee('href="/users/1">'.$article->author->name.'</a>', false);
+        ->assertSee('href="/users/'.$article->author->id.'">', false)
+        ->assertSee($article->author->name);
 });
 
 test('the index shows the first paragraph of the article', function () {
@@ -86,6 +87,10 @@ test('the index filters on location', function () {
 })->markTestIncomplete();
 
 test('the index filters on tag', function () {
+    //
+})->markTestIncomplete();
+
+test('the index filters on published_at month', function () {
     //
 })->markTestIncomplete();
 
