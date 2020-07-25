@@ -14,9 +14,27 @@ module.exports = {
     customForms: theme => ({
       default: {
         'checkbox, radio': {
-          iconColor: defaultTheme.colors.yellow[200],
+          iconColor: theme('colors.yellow.200'),
         },
       },
+    }),
+    typography: theme => ({
+      default: {
+        css: {
+          color: theme('colors.blue.900'),
+          'h1, h2, h3, h4, h5, p': {
+            color: theme('colors.blue.900'),
+          },
+          'h1, h2, h3, h4, h5': {
+            marginTop: theme('margin.4'),
+            marginBottom: theme('margin.2'),
+          },
+          p: {
+            marginTop: theme('margin.4'),
+            marginBottom: theme('margin.2'),
+          },
+        }
+      }
     }),
     extend: {
       zIndex: {
