@@ -70,7 +70,7 @@
             @endforeach
             @endforeach
         </aside>
-        @auth
+        @if(auth()->check() && auth()->id() == 1)
         <aside class="mt-6">
             <form action="/articles/{{ $article->slug }}" method="POST">
                 @csrf
@@ -80,7 +80,7 @@
                 </span>
             </form>
         </aside>
-        @endauth
+        @endif
     </div>
 </main>
 <portal-target name="manage-tag-modal">
