@@ -7,7 +7,7 @@ module.exports = {
       './resources/**/*.vue',
     ],
     options: {
-      whitelistPatterns: [/w-/],
+      whitelistPatterns: [/w-/, /float-/],
     }
   },
   theme: {
