@@ -33,6 +33,9 @@ module.exports = {
             marginTop: theme('margin.2'),
             marginBottom: theme('margin.2'),
           },
+          '.float-left img': {
+            margin: theme('margin.2'),
+          }
         }
       }
     }),
