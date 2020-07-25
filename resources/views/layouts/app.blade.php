@@ -23,27 +23,29 @@
         <!-- Header image by Condor3d: https://commons.wikimedia.org/wiki/User:Condor3d -->
         <!-- Source: https://commons.wikimedia.org/wiki/File:Jabikspaad_wegwijzer.jpg -->
         <header class="relative bg-cover bg-center md:h-64" style="background-image: url('/storage/Jabikspaad.jpg')">
-            <nav class="flex justify-between bg-white bg-opacity-75 px-4 py-3 md:sticky md:top-0 md:w-full">
-                <div class="">
-                    <a class="" href="{{ url('/') }}">{{ config('app.name', 'Laravel') }}</a>
-                </div>
-                <div class="">
-                    @guest
-                        <a class="" href="{{ route('login') }}">{{ __('Login') }}</a>
-                        @if (Route::has('register'))
-                            <a class="" href="{{ route('register') }}">{{ __('Register') }}</a>
-                        @endif
-                    @else
-                        <a class="" href="{{ route('logout') }}"
-                           onclick="event.preventDefault();
-                                         document.getElementById('logout-form').submit();">
-                            {{ __('Logout') }}
-                        </a>
+            <nav class="bg-white bg-opacity-75 md:sticky md:top-0 md:w-full">
+                <div class="flex justify-between container mx-auto px-4 py-3">
+                    <div class="">
+                        <a class="" href="{{ url('/') }}">{{ config('app.name', 'Laravel') }}</a>
+                    </div>
+                    <div class="">
+                        @guest
+                            <a class="" href="{{ route('login') }}">{{ __('Login') }}</a>
+                            @if (Route::has('register'))
+                                <a class="" href="{{ route('register') }}">{{ __('Register') }}</a>
+                            @endif
+                        @else
+                            <a class="" href="{{ route('logout') }}"
+                               onclick="event.preventDefault();
+                                             document.getElementById('logout-form').submit();">
+                                {{ __('Logout') }}
+                            </a>
 
-                        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                            @csrf
-                        </form>
-                    @endguest
+                            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                @csrf
+                            </form>
+                        @endguest
+                    </div>
                 </div>
             </nav>
         </header>

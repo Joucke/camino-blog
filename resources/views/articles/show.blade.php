@@ -3,8 +3,8 @@
 @section('content')
 <main class="flex flex-col sm:flex-row w-full">
     <div class="p-4 flex-grow">
-        <h1 class="text-2xl font-bold mb-3">{{ $article->title }}</h1>
-        <em class="text-xs">
+        <h1 class="text-2xl font-bold">{{ $article->title }}</h1>
+        <em class="text-xs mt-3">
             {{ $article->author->name }}, {{ optional($article->published_at)->diffForHumans() ?? 'nog niet gepubliceerd'}}</em>
         <div class="flex flex-wrap">
             @foreach ($article->taggables as $tag)

@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-<main class="flex flex-col sm:flex-row w-full">
+<main class="container mx-auto flex flex-col sm:flex-row">
     <div class="p-4 sm:pr-0 flex-grow">
         <nav class="flex items-center justify-between text-sm leading-5 font-medium">
             <div class="w-full flex flex-grow-0 items-center">
@@ -21,11 +21,11 @@
         </nav>
         @forelse($articles as $article)
         <article class="mt-3 border-t pt-3">
-            <div class="flex flex-col md:flex-row md:items-baseline">
+            <div class="flex flex-col lg:flex-row lg:items-baseline lg:justify-between">
                 <h3 class="text-2xl tracking-wide font-bold">
                     <a class="" href="/articles/{{ $article->slug }}">{{ $article->title }}</a>
                 </h3>
-                <span class="italic md:ml-3 text-xs">{{ optional($article->published_at)->diffForHumans() }} door <a class="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium leading-4 bg-blue-100" href="/users/{{ $article->author->id }}">{{ $article->author->name }}</a></span>
+                <span class="italic lg:ml-3 text-xs">{{ optional($article->published_at)->diffForHumans() }} door <a class="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium leading-4 bg-blue-100" href="/users/{{ $article->author->id }}">{{ $article->author->name }}</a></span>
             </div>
             <div class="flex flex-wrap mt-2">
             @foreach ($article->taggables as $tag)
@@ -49,6 +49,11 @@
             @endauth
         </article>
         @endforelse
+        @if ($articles->hasPages())
+        <nav>
+            {{ $articles->onEachSide(1)->links() }}
+        </nav>
+        @endif
     </div>
     <div class="p-4 w-full sm:w-64 flex-shrink-0">
         <aside class="">
@@ -81,9 +86,6 @@
         </aside>
     </div>
 </main>
-<nav>
-    {{ $articles->onEachSide(1)->links() }}
-</nav>
 <portal-target name="manage-tag-modal">
 </portal-target>
 <portal-target name="manage-location-modal">
