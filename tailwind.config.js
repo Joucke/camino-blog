@@ -30,7 +30,7 @@ module.exports = {
             marginBottom: theme('margin.2'),
           },
           p: {
-            marginTop: theme('margin.4'),
+            marginTop: theme('margin.2'),
             marginBottom: theme('margin.2'),
           },
         }
