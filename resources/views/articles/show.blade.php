@@ -12,7 +12,7 @@
                 <span class="text-blue-900">{{ $article->title }}</span>
             </div>
             @auth
-            <a href="./edit" title="Bewerken" class="flex w-6 h-6 items-center justify-center rounded font-bold text-lg bg-blue-800 text-yellow-200 p-1">
+            <a href="articles/{{ $article->slug }}/edit" title="Bewerken" class="flex w-6 h-6 items-center justify-center rounded font-bold text-lg bg-blue-800 text-yellow-200 p-1">
                 <svg class="w-4 h-4" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor"><path d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path></svg>
             </a>
             @endauth
@@ -72,7 +72,7 @@
         </aside>
         @auth
         <aside class="mt-6">
-            <form action="./" method="POST">
+            <form action="articles/{{ $article->slug }}" method="POST">
                 @csrf
                 @method('DELETE')
                 <span class="flex w-full rounded-md shadow-sm">
