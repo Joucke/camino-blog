@@ -1,10 +1,10 @@
 <template>
     <div>
         <div class="flex justify-between items-end">
-            <label for="locations" class="block text-sm font-medium leading-5 sm:mt-px sm:pt-2">
+            <label for="locations" class="block text-sm font-medium leading-5">
                 Locatie(s)
             </label>
-            <button type="button" @click="showModal = true" class="flex sm:hidden w-6 h-6 items-center justify-center rounded font-bold text-lg bg-blue-800 text-yellow-200 py-2 px-2">+</button>
+            <button type="button" @click="showModal = true" class="flex w-6 h-6 items-center justify-center rounded font-bold text-lg bg-blue-800 text-yellow-200 py-2 px-2">+</button>
         </div>
         <div class="mt-1 sm:mt-0 sm:col-span-2">
             <div class="max-w-lg rounded-md shadow-sm">
@@ -12,9 +12,6 @@
                     <option v-for="location in locations" :value="location.id">{{ location.title }}</option>
                 </select>
             </div>
-            <button type="button" @click="showModal = true"
-                 class="mt-2 h-auto hidden sm:flex justify-center w-full py-2 px-4 border border-transparent text-sm leading-5 font-medium rounded-md text-yellow-200 bg-blue-800 hover:bg-blue-900 focus:outline-none focus:border-blue-800 focus:shadow-outline-blue active:bg-blue-900 transition duration-150 ease-in-out"
-            >nieuwe locatie toevoegen</button>
             <portal to="add-location-modal">
                 <div v-show="showModal" class="z-1000 fixed bottom-0 inset-x-0 px-4 pb-6 sm:inset-0 sm:p-0 sm:flex sm:items-center sm:justify-center">
                     <transition

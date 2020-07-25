@@ -22,9 +22,15 @@
         <form action="/articles" method="POST" class="mt-3 border-t border-blue-200 pt-3 sm:pt-0 sm:border-t-0">
             @csrf
             @include('articles._form')
-            <span class="mt-6 flex w-full rounded-md shadow-sm">
-                <button class="flex w-full justify-center py-2 px-4 border border-transparent text-sm leading-5 font-medium rounded-md text-yellow-200 bg-blue-800 hover:bg-blue-900 focus:outline-none focus:border-blue-800 focus:shadow-outline-blue active:bg-blue-900 transition duration-150 ease-in-out">Toevoegen</button>
-            </span>
+            <div class="mt-6 border-t border-blue-200">
+                <div class="flex justify-end">
+                    <span class="mt-6 flex rounded-md shadow-sm">
+                        <button class="inline-flex justify-center py-2 px-4 border border-transparent text-sm leading-5 font-medium rounded-md text-yellow-200 bg-blue-800 hover:bg-blue-900 focus:outline-none focus:border-blue-800 focus:shadow-outline-blue active:bg-blue-900 transition duration-150 ease-in-out">
+                            Toevoegen
+                        </button>
+                    </span>
+                </div>
+            </div>
         </form>
     </div>
     <div class="p-4 w-full sm:w-64">
