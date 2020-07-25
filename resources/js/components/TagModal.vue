@@ -24,11 +24,11 @@
             <form class="block bg-white rounded-lg px-4 pt-5 pb-4 overflow-hidden shadow-xl transform transition-all sm:max-w-sm sm:w-full sm:p-6" role="dialog" aria-modal="true" aria-labelledby="modal-headline" :action="tag.url" method="POST" @submit="updateTag">
                 <div>
                     <div class="mt-3 sm:mt-5">
-                        <h3 class="text-lg text-center leading-6 font-medium text-gray-900" id="modal-headline">
+                        <h3 class="text-lg text-center leading-6 font-medium" id="modal-headline">
                             Tag bewerken
                         </h3>
                         <div class="mt-3">
-                            <label for="tag-title" class="block text-sm font-medium leading-5 text-gray-700">Titel</label>
+                            <label for="tag-title" class="block text-sm font-medium leading-5">Titel</label>
                             <div class="mt-1 relative rounded-md shadow-sm">
                                 <input ref="focusInput" type="text" id="tag-title" v-model="newTag.title" placeholder="Titel van de tag" class="form-input block w-full transition duration-150 ease-in-out sm:text-sm sm:leading-5">
                             </div>

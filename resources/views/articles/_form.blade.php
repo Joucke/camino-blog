@@ -1,4 +1,4 @@
-<div class="sm:grid sm:grid-cols-3 sm:gap-4 sm:items-start sm:border-t sm:border-gray-200 sm:pt-5">
+<div class="sm:grid sm:grid-cols-3 sm:gap-4 sm:items-start sm:border-t sm:border-blue-200 sm:pt-5">
     <label for="title" class="block text-sm font-medium leading-5 sm:mt-px sm:pt-2">
         Titel
     </label>
@@ -9,7 +9,7 @@
     </div>
 </div>
 
-<div class="mt-6 sm:mt-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:items-start sm:border-t sm:border-gray-200 sm:pt-5">
+<div class="mt-6 sm:mt-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:items-start sm:border-t sm:border-blue-200 sm:pt-5">
     <label for="body" class="block text-sm font-medium leading-5 sm:mt-px sm:pt-2">
         Inhoud
     </label>
@@ -20,7 +20,7 @@
     </div>
 </div>
 
-<div class="mt-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:items-start sm:border-t sm:border-gray-200 sm:pt-5">
+<div class="mt-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:items-start sm:border-t sm:border-blue-200 sm:pt-5">
     <label for="published_at" class="block text-sm font-medium leading-5 sm:mt-px sm:pt-2">
         Publiceren op
     </label>
@@ -32,11 +32,11 @@
 </div>
 
 <location-select
-    class="mt-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:items-start sm:border-t sm:border-gray-200 sm:pt-5"
+    class="mt-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:items-start sm:border-t sm:border-blue-200 sm:pt-5"
     :original-selected="{{ $article->locations->pluck('id') }}">
 </location-select>
 
 <tag-select
-    class="mt-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:items-start sm:border-t sm:border-gray-200 sm:pt-5"
+    class="mt-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:items-start sm:border-t sm:border-blue-200 sm:pt-5"
     :original-selected="{{ $article->tags->pluck('id') }}">
 </tag-select>

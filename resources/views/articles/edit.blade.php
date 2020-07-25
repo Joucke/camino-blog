@@ -19,7 +19,7 @@
             </button>
             --}}
         </nav>
-        <form action="/articles/{{ $article->slug }}" method="POST" class="mt-3 border-t pt-3">
+        <form action="/articles/{{ $article->slug }}" method="POST" class="mt-3 border-t border-blue-200 pt-3 sm:pt-0 sm:border-t-0">
             @csrf
             @method('PATCH')
             @include('articles._form')

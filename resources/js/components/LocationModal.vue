@@ -24,24 +24,24 @@
             <form class="block bg-white rounded-lg px-4 pt-5 pb-4 overflow-hidden shadow-xl transform transition-all sm:max-w-sm sm:w-full sm:p-6" role="dialog" aria-modal="true" aria-labelledby="modal-headline" :action="location.url" method="POST" @submit="updateLocation">
                 <div>
                     <div class="mt-3 sm:mt-5">
-                        <h3 class="text-lg text-center leading-6 font-medium text-gray-900" id="modal-headline">
+                        <h3 class="text-lg text-center leading-6 font-medium" id="modal-headline">
                             Locatie bewerken
                         </h3>
                         <div class="mt-3">
-                            <label for="location-title" class="block text-sm font-medium leading-5 text-gray-700">Titel</label>
+                            <label for="location-title" class="block text-sm font-medium leading-5">Titel</label>
                             <div class="mt-1 relative rounded-md shadow-sm">
                                 <input ref="focusInput" type="text" id="location-title" v-model="newLocation.title" placeholder="Titel van de locatie" class="form-input block w-full transition duration-150 ease-in-out sm:text-sm sm:leading-5">
                             </div>
                         </div>
                         <div class="mt-3 flex">
                             <div class="w-1/2 flex-1 min-w-0">
-                                <label for="location-lat" class="block text-sm font-medium leading-5 text-gray-700">Latitude</label>
+                                <label for="location-lat" class="block text-sm font-medium leading-5">Latitude</label>
                                 <div class="mt-1 relative rounded-md shadow-sm">
                                     <input type="text" id="location-lat" v-model="newLocation.latitude" placeholder="latitude" class="form-input relative block w-full rounded-r-none bg-transparent focus:z-10 transition ease-in-out duration-150 sm:text-sm sm:leading-5">
                                 </div>
                             </div>
                             <div class="-ml-px flex-1 min-w-0">
-                                <label for="location-lng" class="block text-sm font-medium leading-5 text-gray-700">Longitude</label>
+                                <label for="location-lng" class="block text-sm font-medium leading-5">Longitude</label>
                                 <div class="mt-1 relative rounded-md shadow-sm">
                                     <input type="text" id="location-lng" v-model="newLocation.longitude" placeholder="longitude" class="form-input relative block w-full rounded-l-none bg-transparent focus:z-10 transition ease-in-out duration-150 sm:text-sm sm:leading-5">
                                 </div>

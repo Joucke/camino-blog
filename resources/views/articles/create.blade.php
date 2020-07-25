@@ -19,7 +19,7 @@
             </button>
             --}}
         </nav>
-        <form action="/articles" method="POST" class="mt-3 border-t pt-3">
+        <form action="/articles" method="POST" class="mt-3 border-t border-blue-200 pt-3 sm:pt-0 sm:border-t-0">
             @csrf
             @include('articles._form')
             <span class="mt-6 flex w-full rounded-md shadow-sm">
