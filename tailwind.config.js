@@ -11,6 +11,13 @@ module.exports = {
     }
   },
   theme: {
+    customForms: theme => ({
+      default: {
+        'checkbox, radio': {
+          iconColor: defaultTheme.colors.yellow[200],
+        },
+      },
+    }),
     extend: {
       zIndex: {
         1000: '1000',

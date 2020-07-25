@@ -94,7 +94,17 @@ class ArticleController extends Controller
         $article->locations->sortBy('title');
         $article->tags->sortBy('title');
 
-        return view('articles.show', compact('article'));
+
+        $tags = Tag::withCount('articles')->orderBy('articles_count', 'desc')->orderBy('title')->get();
+
+        $history = DB::table('articles')->whereNotNull('published_at')->select(DB::raw('count(*) articles_count, DATE_FORMAT(`published_at`, "%y-%m-01") published_month'))->groupBy('published_month')->orderBy('published_month', 'desc')->get()->map(function ($item) {
+                $item->published_month = Carbon::create($item->published_month);
+                return $item;
+            })->groupBy(function ($item) {
+            return $item->published_month->format('Y');
+        });
+
+        return view('articles.show', compact('article', 'tags', 'history'));
     }
 
     /**
