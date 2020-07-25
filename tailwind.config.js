@@ -26,17 +26,21 @@ module.exports = {
             color: theme('colors.blue.900'),
           },
           'h1, h2, h3, h4, h5': {
-            marginTop: theme('margin.4'),
-            marginBottom: theme('margin.2'),
+            marginTop: theme('spacing.4'),
+            marginBottom: theme('spacing.2'),
           },
           p: {
-            marginTop: theme('margin.2'),
-            marginBottom: theme('margin.2'),
+            marginTop: theme('spacing.2'),
+            marginBottom: theme('spacing.2'),
           },
-          '.float-left img': {
-            marginTop: theme('margin.2'),
-            marginRight: theme('margin.2'),
-            marginBottom: theme('margin.0'),
+          'p.float-left, p.float-right': {
+            marginTop: theme('spacing.0'),
+            marginBottom: theme('spacing.0'),
+            paddingRight: theme('spacing.2'),
+          },
+          '.float-left img, .float-right img': {
+            marginTop: theme('spacing.2'),
+            marginBottom: theme('spacing.0'),
           }
         }
       }
