@@ -11,7 +11,7 @@
                     leave-class="opacity-100"
                     leave-to-class="opacity-0"
                     >
-                    <div v-show="showModal" class="fixed inset-0 transition-opacity">
+                    <div v-show="showModal" class="fixed inset-0 transition-opacity" @click="showModal = false">
                         <div class="absolute inset-0 bg-gray-500 opacity-75"></div>
                     </div>
                 </transition>
@@ -27,17 +27,18 @@
                     <div class="bg-white rounded-lg px-4 pt-5 pb-4 overflow-hidden shadow-xl transform transition-all sm:max-w-sm sm:w-full sm:p-6" role="dialog" aria-modal="true" aria-labelledby="modal-headline">
                         <div>
                             <div class="mt-3 text-center sm:mt-5">
-                                <h3 class="text-lg leading-6 font-medium text-gray-900" id="modal-headline">
+                                <h3 class="text-lg leading-6 font-medium" id="modal-headline">
                                     Onderschrift
                                 </h3>
-                                <div class="mt-2">
-                                    <textarea autofocus ref="captionArea" v-model="caption" rows="3" class="form-textarea block w-full transition duration-150 ease-in-out sm:text-sm sm:leading-5" ></textarea>
+                                <div class="mt-3">
+                                    <textarea autofocus ref="captionArea" v-model="caption" rows="3" class="form-textarea block w-full border-blue-800 focus:outline-none focus:shadow-outline-blue focus:border-blue-800 transition duration-150 ease-in-out sm:text-sm sm:leading-5" ></textarea>
                                 </div>
+                                <!-- TODO: align left/right, choose width, alt text -->
                             </div>
                         </div>
                         <div class="mt-5 sm:mt-6">
                             <span class="flex w-full rounded-md shadow-sm">
-                                <button type="button" class="inline-flex justify-center w-full rounded-md border border-transparent px-4 py-2 bg-indigo-600 text-base leading-6 font-medium text-white shadow-sm hover:bg-indigo-500 focus:outline-none focus:border-indigo-700 focus:shadow-outline-indigo transition ease-in-out duration-150 sm:text-sm sm:leading-5" @click="addPhotoWithCaption">
+                                <button type="button" class="flex w-full justify-center py-2 px-4 border border-transparent text-sm leading-5 font-medium rounded-md text-yellow-200 bg-blue-800 hover:bg-blue-900 focus:outline-none focus:border-blue-800 focus:shadow-outline-blue active:bg-blue-900 transition duration-150 ease-in-out sm:text-sm sm:leading-5" @click="addPhotoWithCaption">
                                     Toevoegen
                                 </button>
                             </span>
@@ -65,8 +66,17 @@ export default {
         this.$on('images', this.setImages);
         this.textarea = this.$children.find(el => el.textarea());
         this.imagePreview = this.$children.find(el => el.imagePreview);
+        document.addEventListener('keyup', this.keyListener);
+    },
+    destroyed () {
+        document.removeEventListener('keyup', this.keyListener);
     },
     methods: {
+        keyListener (e) {
+            if (e.keyCode == 27) {
+                this.showModal = false;
+            }
+        },
         addPhotoWithCaption() {
             this.textarea.text += `
 

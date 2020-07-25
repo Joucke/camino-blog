@@ -1,41 +1,44 @@
 @extends('layouts.app')
 
 @section('content')
-<main>
-    <blog-form class="flex flex-col sm:flex-row w-full">
-        <form class="flex-grow p-4" action="/articles/{{ $article->slug }}" method="POST">
+<blog-form class="container mx-auto flex flex-col sm:flex-row">
+    <div class="p-4 sm:pr-0 flex-grow">
+        <nav class="flex items-center justify-between text-sm leading-5 font-medium">
+            <div class="w-full flex flex-grow-0 items-center">
+                <a href="/" class="text-blue-700 hover:text-blue-900 hover:underline transition duration-150 ease-in-out">Alle blogs</a>
+                <svg class="flex-shrink-0 mx-2 h-5 w-5 text-blue-700" viewBox="0 0 20 20" fill="currentColor">
+                    <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd" />
+                </svg>
+                <span class="text-blue-900">Blog bewerken</span>
+            </div>
+            {{-- TODO: new image modal w/ paginated browsing, direct upload, etc
+            <button class="flex w-6 h-6 items-center justify-center rounded font-bold text-lg bg-blue-800 text-yellow-200 p-1">
+                <svg class="mx-auto h-4 w-4" stroke="currentColor" fill="none" viewBox="0 0 48 48">
+                    <path d="M28 8H12a4 4 0 00-4 4v20m32-12v8m0 0v8a4 4 0 01-4 4H12a4 4 0 01-4-4v-4m32-4l-3.172-3.172a4 4 0 00-5.656 0L28 28M8 32l9.172-9.172a4 4 0 015.656 0L28 28m0 0l4 4m4-24h8m-4-4v8m-12 4h.02" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+            </button>
+            --}}
+        </nav>
+        <form action="/articles/{{ $article->slug }}" method="POST" class="mt-3 border-t pt-3">
             @csrf
             @method('PATCH')
-            <div>
-                <div>
-                    <div>
-                        <h3 class="text-lg leading-6 font-medium text-gray-900">Blog bewerken: {{ $article->title }}</h3>
-                    </div>
-                    <div class="mt-6 sm:mt-5">
-    @include('articles._form')
-                    </div>
-                </div>
-                <div class="mt-8 border-t border-gray-200 pt-5">
-                    <div class="flex justify-end">
-                        <span class="ml-3 inline-flex rounded-md shadow-sm">
-                            <button type="submit" class="inline-flex justify-center py-2 px-4 border border-transparent text-sm leading-5 font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-500 focus:outline-none focus:border-indigo-700 focus:shadow-outline-indigo active:bg-indigo-700 transition duration-150 ease-in-out">
-                                Opslaan
-                            </button>
-                        </span>
-                    </div>
-                </div>
-            </div>
+            @include('articles._form')
+            <span class="mt-6 flex w-full rounded-md shadow-sm">
+                <button class="flex w-full justify-center py-2 px-4 border border-transparent text-sm leading-5 font-medium rounded-md text-yellow-200 bg-blue-800 hover:bg-blue-900 focus:outline-none focus:border-blue-800 focus:shadow-outline-blue active:bg-blue-900 transition duration-150 ease-in-out">
+                    Opslaan
+                </button>
+            </span>
         </form>
-        <div class="p-4 w-full sm:w-64">
-            <aside>
-                <upload-form />
-            </aside>
-            <aside class="mt-6">
-                <image-preview />
-            </aside>
-        </div>
-    </blog-form>
-</main>
+    </div>
+    <div class="p-4 w-full sm:w-64">
+        <aside>
+            <upload-form />
+        </aside>
+        <aside class="mt-6">
+            <image-preview />
+        </aside>
+    </div>
+</blog-form>
 <portal-target name="blog-form-modal">
 </portal-target>
 <portal-target name="add-location-modal">
