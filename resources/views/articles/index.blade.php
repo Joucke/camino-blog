@@ -25,7 +25,10 @@
                 <h3 class="text-2xl tracking-wide font-bold">
                     <a class="" href="/articles/{{ $article->slug }}">{{ $article->title }}</a>
                 </h3>
-                <em class="lg:ml-3 text-xs">{{ optional($article->published_at)->diffForHumans() }} door <a class="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium leading-4 bg-blue-100" href="/users/{{ $article->author->id }}">{{ $article->author->name }}</a></em>
+                <em class="lg:ml-3 text-xs">
+                    <time datetime="{{ $article->published_at }}" class="">{{ optional($article->published_at)->calendar() ?? 'nog niet gepubliceerd'}}</time>
+                    <span> door <a class="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium leading-4 bg-blue-100" href="/users/{{ $article->author->id }}">{{ $article->author->name }}</a></span>
+                </em>
             </div>
             <div class="flex flex-wrap mt-2">
             @foreach ($article->taggables as $tag)

@@ -22,7 +22,7 @@
                 <h1 class="text-2xl tracking-wide font-bold">{{ $article->title }}</h1>
                 <em class="lg:mt-3 text-xs">
                     <a class="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium leading-4 bg-blue-100" href="/users/{{ $article->author->id }}">{{ $article->author->name }}</a>
-                    <span class="">{{ optional($article->published_at)->diffForHumans() ?? 'nog niet gepubliceerd'}}</span>
+                    <time datetime="{{ $article->published_at }}" class="">{{ optional($article->published_at)->calendar() ?? 'nog niet gepubliceerd'}}</time>
                 </em>
             </div>
             <div class="flex flex-wrap mt-2">
