@@ -33,10 +33,15 @@ module.exports = {
             marginTop: theme('spacing.2'),
             marginBottom: theme('spacing.2'),
           },
-          'p.float-left, p.float-right': {
+          'p.float-left': {
             marginTop: theme('spacing.0'),
             marginBottom: theme('spacing.0'),
             paddingRight: theme('spacing.2'),
+          },
+          'p.float-right': {
+            marginTop: theme('spacing.0'),
+            marginBottom: theme('spacing.0'),
+            paddingLeft: theme('spacing.2'),
           },
           '.float-left img, .float-right img': {
             marginTop: theme('spacing.2'),
