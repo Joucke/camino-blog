@@ -32,11 +32,15 @@
             </div>
             <div class="flex flex-wrap mt-2">
             @foreach ($article->taggables as $tag)
-                <taggable-manager :tag="{{ $tag }}">
-                    <template v-slot:default="{taggable}">
-                        <a :href="taggable.url" class="mt-1 mr-1 inline-flex items-center px-2 py-0.5 rounded text-xs font-medium opacity-50 leading-4 bg-blue-800 text-yellow-200">@{{ taggable.title }}</a>
-                    </template>
-                </taggable-manager>
+                @auth
+                    <taggable-manager :tag="{{ $tag }}">
+                        <template v-slot:default="{taggable}">
+                            <a :href="taggable.url" class="mt-1 mr-1 inline-flex items-center px-2 py-0.5 rounded text-xs font-medium opacity-50 leading-4 bg-blue-800 text-yellow-200">@{{ taggable.title }}</a>
+                        </template>
+                    </taggable-manager>
+                @else
+                    <a href="{{ $tag->url }}" class="mt-1 mr-1 inline-flex items-center px-2 py-0.5 rounded text-xs font-medium opacity-50 leading-4 bg-blue-800 text-yellow-200">{{ $tag->title }}</a>
+                @endauth
             @endforeach
             </div>
             <div class="mt-3 prose">
