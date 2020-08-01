@@ -73,11 +73,17 @@
             <h4>Tags</h4>
             <div>
             @foreach ($tags as $tag)
+                @auth
                 <taggable-manager :tag="{{ $tag }}">
                     <template v-slot:default="{taggable}">
                         <a :href="taggable.url" class="mt-1 mr-1 inline-flex items-center text-xs font-medium leading-4">@{{ taggable.title }}@{{ taggable.articles_count ? ` (${taggable.articles_count})` : '' }}</a>
                     </template>
                 </taggable-manager>
+                @else
+                <div>
+                    <a href="{{ $tag->url }}" class="mt-1 mr-1 inline-flex items-center text-xs font-medium leading-4">{{ $tag->title }}{{ $tag->articles_count ? " ({$tag->articles_count})" : '' }}</a>
+                </div>
+                @endauth
             @endforeach
             </div>
         </aside>
