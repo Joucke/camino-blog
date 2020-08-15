@@ -22,6 +22,7 @@ window.Vue = require('vue');
 Vue.component('article-map', require('./components/ArticleMap.vue').default);
 Vue.component('blog-form', require('./components/BlogForm.vue').default);
 Vue.component('blog-textarea', require('./components/BlogTextarea.vue').default);
+Vue.component('image-article', require('./components/ImageArticle.vue').default);
 Vue.component('image-preview', require('./components/ImagePreview.vue').default);
 Vue.component('location-select', require('./components/LocationSelect.vue').default);
 Vue.component('tag-select', require('./components/TagSelect.vue').default);

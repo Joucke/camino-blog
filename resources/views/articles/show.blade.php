@@ -17,7 +17,7 @@
             </a>
             @endauth
         </nav>
-        <article class="mt-3 border-t pt-3">
+        <image-article class="mt-3 border-t pt-3">
             <div class="flex flex-col lg:flex-row lg:items-baseline lg:justify-between">
                 <h1 class="text-2xl tracking-wide font-bold">{{ $article->title }}</h1>
                 <em class="lg:mt-3 text-xs">
@@ -43,7 +43,7 @@
 {{ $article->body }}
 @endmarkdown
             </div>
-        </article>
+        </image-article>
     </div>
     <div class="p-4 w-full sm:w-64 flex-shrink-0">
         <aside class="">
@@ -88,6 +88,8 @@
     </div>
 </main>
 <portal-target name="manage-tag-modal">
+</portal-target>
+<portal-target name="image-slideshow">
 </portal-target>
 <portal-target name="manage-location-modal">
 </portal-target>
