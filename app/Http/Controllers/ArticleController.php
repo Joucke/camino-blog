@@ -38,7 +38,8 @@ class ArticleController extends Controller
         $history = Article::history();
 
         if (!$parent && $year && $month) {
-            $parent = (object)['title' => sprintf('%d-%s', $year, $month)];
+            $date = Carbon::create(sprintf('%s-%s-01', $year, $month))->isoFormat('MMMM Y');
+            $parent = (object)['title' => ucfirst($date)];
         }
         return view('articles.index', compact('articles', 'locations', 'parent', 'tags', 'history'));
     }
