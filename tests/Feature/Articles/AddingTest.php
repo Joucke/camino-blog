@@ -20,10 +20,11 @@ test('users can add an article', function () {
         ->get('/articles/create')
         ->assertOk();
 
-    $this->post('/articles', [
-        'title' => 'my article',
-        'body' => 'this is my article',
-    ])
+    $this->withoutExceptionHandling()
+        ->post('/articles', [
+            'title' => 'my article',
+            'body' => 'this is my article',
+        ])
         ->assertRedirect('/');
 
     $this->get('/')
@@ -89,6 +90,21 @@ test('users can add tags when creating an article', function () {
     $this->assertTrue($article->tags->first()->is($tag));
 });
 
-test('validation', function () {
-    //
-})->markTestIncomplete();
+it('validates these fields when creating an article', function () {
+    $this->actingAs(factory(User::class)->create())
+        ->post('/articles', [
+            'title' => '',
+            'body' => '',
+        ])
+        ->assertSessionHasErrors([
+            'title' => 'Titel is verplicht.',
+            'body' => 'Inhoud is verplicht.',
+        ]);
+
+    factory(Article::class)->create(['title' => 'foobar']);
+
+    $this->post('/articles', ['title' => 'foobar'])
+        ->assertSessionHasErrors([
+            'title' => 'Titel moet uniek zijn.',
+        ]);
+});

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Article;
+use App\Http\Requests\StoreArticle;
 use App\PublishedArticle;
 use App\Tag;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
@@ -23,9 +24,9 @@ class ArticleController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request, ?LengthAwarePaginator $articles = null, ?Model $parent = null)
+    public function index(Request $request, ?LengthAwarePaginator $articles = null, ?Model $parent = null, ?string $year = null, ?string $month = null)
     {
-        $articles = $articles ?? PublishedArticle::forIndex();
+        $articles = $articles ?? PublishedArticle::publishedIn($year, $month)->forIndex();
 
         $locations = $articles->pluck('locations')
             ->flatten()
@@ -34,13 +35,11 @@ class ArticleController extends Controller
 
         $tags = Tag::withCount('articles')->orderBy('articles_count', 'desc')->orderBy('title')->get();
 
-        $history = DB::table('articles')->whereNotNull('published_at')->select(DB::raw('count(*) articles_count, DATE_FORMAT(`published_at`, "%y-%m-01") published_month'))->groupBy('published_month')->orderBy('published_month', 'desc')->get()->map(function ($item) {
-                $item->published_month = Carbon::create($item->published_month);
-                return $item;
-            })->groupBy(function ($item) {
-            return $item->published_month->format('Y');
-        });
+        $history = Article::history();
 
+        if (!$parent && $year && $month) {
+            $parent = (object)['title' => sprintf('%d-%s', $year, $month)];
+        }
         return view('articles.index', compact('articles', 'locations', 'parent', 'tags', 'history'));
     }
 
@@ -59,25 +58,14 @@ class ArticleController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Http\Requests\StoreArticle  $request
      *
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreArticle $request)
     {
-        $attributes = $request->only(['title', 'body', 'published_at']);
-        $attributes['slug'] = Str::slug($attributes['title']);
-        $article = auth()->user()->articles()->create($attributes);
+        $request->store();
 
-        if ($request->has('locations')) {
-            $locations = $request->input('locations');
-            $article->locations()->attach($locations);
-        }
-
-        if ($request->has('tags')) {
-            $tags = $request->input('tags');
-            $article->tags()->attach($tags);
-        }
         return redirect('/');
     }
 
@@ -97,12 +85,7 @@ class ArticleController extends Controller
 
         $tags = Tag::withCount('articles')->orderBy('articles_count', 'desc')->orderBy('title')->get();
 
-        $history = DB::table('articles')->whereNotNull('published_at')->select(DB::raw('count(*) articles_count, DATE_FORMAT(`published_at`, "%y-%m-01") published_month'))->groupBy('published_month')->orderBy('published_month', 'desc')->get()->map(function ($item) {
-                $item->published_month = Carbon::create($item->published_month);
-                return $item;
-            })->groupBy(function ($item) {
-            return $item->published_month->format('Y');
-        });
+        $history = Article::history();
 
         return view('articles.show', compact('article', 'tags', 'history'));
     }
@@ -129,21 +112,9 @@ class ArticleController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Article $article)
+    public function update(StoreArticle $request, Article $article)
     {
-        $attributes = $request->only(['title', 'body', 'published_at']);
-        $attributes['slug'] = Str::slug($attributes['title']);
-        $article->update($attributes);
-
-        if ($request->has('locations')) {
-            $locations = $request->input('locations');
-            $article->locations()->sync($locations);
-        }
-
-        if ($request->has('tags')) {
-            $tags = $request->input('tags');
-            $article->tags()->sync($tags);
-        }
+        $article = $request->update($article);
 
         return redirect('/articles/'.$article->slug);
     }

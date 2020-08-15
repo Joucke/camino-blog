@@ -118,6 +118,24 @@ test('users can change tags when editing an article', function () {
     });
 });
 
-test('validation', function () {
-    //
-})->markTestIncomplete();
+it('validates these fields when updating an article', function () {
+    $this->actingAs($this->article->author)
+        ->patch($this->articleUrl, [
+            'title' => '',
+            'body' => '',
+        ])
+        ->assertSessionHasErrors([
+            'title' => 'Titel is verplicht.',
+            'body' => 'Inhoud is verplicht.',
+        ]);
+
+    factory(Article::class)->create(['title' => 'the title']);
+
+    $this->actingAs($this->article->author)
+        ->patch($this->articleUrl, [
+            'title' => 'the title',
+        ])
+        ->assertSessionHasErrors([
+            'title' => 'Titel moet uniek zijn.',
+        ]);
+});

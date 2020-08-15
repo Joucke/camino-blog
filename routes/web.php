@@ -32,3 +32,6 @@ Route::resource('tags', 'TagController')->only([
     'update',
     'destroy',
 ]);
+
+Route::get('/{year}/{month}', 'ArticleController@index')
+    ->where(['year' => '[0-9]{4}', 'month' => '[0-9]{2}']);

@@ -1,5 +1,6 @@
 <?php
 
+use App\Article;
 use App\Location;
 use App\User;
 use Illuminate\Support\Carbon;
@@ -53,4 +54,22 @@ test('locations are sorted latest-first', function () {
             $new->toArray(),
             $old->toArray(),
         ]);
+});
+
+it('shows articles by location', function () {
+    $location = factory(Location::class)->create();
+    $articles = factory(Article::class, 3)
+        ->states('published')
+        ->create();
+    $otherArticle = factory(Article::class)
+        ->states('published')
+        ->create();
+    $location->articles()->attach($articles);
+
+    $this->get($location->url)
+        ->assertSee($articles[0]->title)
+        ->assertSee($articles[1]->title)
+        ->assertSee($articles[2]->title)
+        ->assertDontSee($otherArticle->title)
+        ;
 });
