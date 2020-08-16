@@ -84,6 +84,7 @@ class StoreArticle extends FormRequest
      */
     public function messages()
     {
+        // TODO: move to translation file
         return [
             'required' => ':attribute is verplicht.',
             'unique' => ':attribute moet uniek zijn.',
@@ -97,6 +98,7 @@ class StoreArticle extends FormRequest
      */
     public function attributes()
     {
+        // TODO: move to translation file
         return [
             'title' => 'Titel',
             'body' => 'Inhoud',

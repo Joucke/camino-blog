@@ -13,6 +13,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+// TODO: refactor routes into public / private
+// TODO: add story mode for articles
+
 Auth::routes(['register' => false]);
 
 Route::get('/', 'ArticleController@index');

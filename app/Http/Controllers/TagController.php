@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreTag;
 use App\Tag;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -30,9 +31,9 @@ class TagController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreTag $request)
     {
-        Tag::create($request->only('title'));
+        Tag::create($request->validated());
         return Tag::orderBy('title')->get();
     }
 
@@ -46,10 +47,6 @@ class TagController extends Controller
      */
     public function show(Request $request, Tag $tag)
     {
-        if ($request->wantsJson()) {
-            return $tag;
-        }
-
         $articles = $tag->articles()->forIndex();
         return (new ArticleController)->index($request, $articles, $tag);
     }
@@ -62,9 +59,9 @@ class TagController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Tag $tag)
+    public function update(StoreTag $request, Tag $tag)
     {
-        $tag->update($request->only('title'));
+        $tag->update($request->validated());
         if ($request->has('pivot')) {
             $tag->pivot = $request->input('pivot');
         }

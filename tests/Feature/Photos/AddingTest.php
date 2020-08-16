@@ -26,7 +26,6 @@ test('users can upload photos', function () {
         ])
         ->assertOk();
 
-    // Assert the file was stored...
     Storage::disk('photos')->assertExists(now()->format('Y-m-d') . '/' . $landscape->hashName());
     Storage::disk('photos')->assertExists(now()->format('Y-m-d') . '/' . $person->hashName());
 
@@ -34,7 +33,3 @@ test('users can upload photos', function () {
     $this->assertTrue($photos->contains('path', now()->format('Y-m-d') . '/' . $landscape->hashName()));
     $this->assertTrue($photos->contains('path', now()->format('Y-m-d') . '/' . $person->hashName()));
 });
-
-test('validation', function () {
-    //
-})->markTestIncomplete();

@@ -2,6 +2,7 @@
 
 use App\Article;
 use App\Location;
+use App\Tag;
 use App\User;
 
 it('loads the home page')
@@ -63,8 +64,27 @@ test('guests see a link to "map view" on the home page', function () {
         ->assertSee('"title":"'.$location->title.'"');
 });
 
-test('guests see a list of tags on the home page')
-    ->markTestIncomplete();
+test('guests see a list of tags on the home page', function () {
+    $tag = factory(Tag::class)->create();
 
-test('guests see a calendar view on the home page')
-    ->markTestIncomplete();
+    $this->get('/')
+        ->assertSee($tag->title);
+});
+
+test('guests see a calendar view on the home page', function () {
+    $article = factory(Article::class)->create([
+        'published_at' => '2020-07-01 10:00:00',
+    ]);
+    $article = factory(Article::class)->create([
+        'published_at' => '2020-06-01 10:00:00',
+    ]);
+    $article = factory(Article::class)->create([
+        'published_at' => '2020-05-01 10:00:00',
+    ]);
+
+    $this->get('/')
+        ->assertSee('"/2020/07"', false)
+        ->assertSee('"/2020/06"', false)
+        ->assertSee('"/2020/05"', false)
+    ;
+});

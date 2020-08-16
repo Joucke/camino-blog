@@ -22,6 +22,21 @@ test('users can add tags', function () {
     $this->assertCount(1, Tag::all());
 });
 
-test('validation', function () {
-    //
-})->markTestIncomplete();
+it('validates these fields when creating a tag', function () {
+    $this->actingAs(factory(User::class)->create())
+        ->post('/tags', [
+            'title' => '',
+        ])
+        ->assertSessionHasErrors([
+            'title' => 'Titel is verplicht.',
+        ]);
+
+    factory(Tag::class)->create([
+        'title' => 'foobar',
+    ]);
+
+    $this->post('/tags', ['title' => 'foobar'])
+        ->assertSessionHasErrors([
+            'title' => 'Titel moet uniek zijn.',
+        ]);
+});

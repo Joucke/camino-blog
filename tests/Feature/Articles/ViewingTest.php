@@ -96,6 +96,19 @@ test('the index filters on published_at month', function () {
     ;
 });
 
+test('the index filters on article author', function () {
+    $article = factory(Article::class)->create([
+        'published_at' => '2020-06-01 10:00:00',
+    ]);
+    $otherArticle = factory(Article::class)->create([
+        'published_at' => '2020-07-01 10:00:00',
+    ]);
+
+    $this->get('/users/'.$article->author->id)
+        ->assertSee($article->title)
+        ->assertDontSee($otherArticle->title);
+});
+
 test('guests can view a published article', function () {
     $article = factory(Article::class)->states('published')->create();
 

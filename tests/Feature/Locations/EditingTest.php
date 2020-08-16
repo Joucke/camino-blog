@@ -1,5 +1,6 @@
 <?php
 
+use App\Article;
 use App\Location;
 use App\User;
 
@@ -44,10 +45,52 @@ test('users can update a location', function () {
     });
 });
 
-test('users can udpate a location from the article page', function () {
-    // TODO: dusk test?
-})->markTestIncomplete();
+test('when updating a location with pivot, it returns the location with pivot', function () {
+    $this->actingAs(factory(User::class)->create())
+        ->patchJson($this->location->url, [
+            'title' => 'new title',
+            'latitude' => 14,
+            'longitude' => 27,
+            'pivot' => ['fake data'],
+        ])->assertOk()
+        ->assertJson([
+            'pivot' => ['fake data'],
+        ]);
+});
 
-test('validation', function () {
-    //
-})->markTestIncomplete();
+test('users can update a location from the article page', function () {
+    $article = factory(Article::class)->states('published')->create();
+    $article->locations()->attach($this->location);
+
+    $this->get('/articles/'.$article->slug)
+        ->assertOk()
+        ->assertDontSee('taggable-manager');
+
+    $this->actingAs($article->author)
+        ->get('/articles/'.$article->slug)
+        ->assertOk()
+        ->assertSee('taggable-manager');
+});
+
+it('validates these fields when updating a location', function () {
+    $this->actingAs(factory(User::class)->create())
+        ->patch($this->location->url, [
+            'title' => '',
+            'latitude' => '',
+            'longitude' => '',
+        ])
+        ->assertSessionHasErrors([
+            'title' => 'Titel is verplicht.',
+            'latitude' => 'Latitude is verplicht.',
+            'longitude' => 'Longitude is verplicht.',
+        ]);
+
+    factory(Location::class)->create([
+        'title' => 'foobar',
+    ]);
+
+    $this->patch($this->location->url, ['title' => 'foobar'])
+        ->assertSessionHasErrors([
+            'title' => 'Titel moet uniek zijn.',
+        ]);
+});

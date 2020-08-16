@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreLocation;
 use App\Location;
 use Illuminate\Http\Request;
 
@@ -37,10 +38,9 @@ class LocationController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreLocation $request)
     {
-        $attributes = $request->only(['title', 'latitude', 'longitude']);
-        Location::create($attributes);
+        Location::create($request->validated());
 
         return Location::latest()->get();
     }
@@ -71,9 +71,9 @@ class LocationController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Location $location)
+    public function update(StoreLocation $request, Location $location)
     {
-        $location->update($request->only(['title', 'latitude', 'longitude']));
+        $location->update($request->validated());
 
         if ($request->wantsJson()) {
             if ($request->has('pivot')) {
